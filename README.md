@@ -27,4 +27,10 @@ https://pixabay.com/photos/sunflower-blossom-bloom-yellow-4570071/
 https://pixabay.com/photos/california-road-highway-hills-210913/
 
 ##chimneyrock
-Personal photo. 
+Personal photo.
+
+##rsi-example
+wikipedia
+
+##bootstrap
+wikipedia
