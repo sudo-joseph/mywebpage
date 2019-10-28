@@ -1,1 +1,30 @@
-# solopage
+#mywebpage
+A simple personal blog and landing page built with bootstrap 4.
+
+##Colortheme
+
+#f2fcfc - light blue
+#f2f2f2 - light grey
+
+gradients from https://www.w3schools.com/colors/colors_gradient.asp
+
+##Font
+
+Barlow condensed from google fonts.
+<link href="https://fonts.googleapis.com/css?family=Barlow+Condensed&display=swap" rel="stylesheet">
+
+Social Media Icons from https://fontawesome.com/
+
+##images
+
+###traffic
+https://pixabay.com/photos/traffic-highway-lights-night-road-332857/
+
+###sunflower
+https://pixabay.com/photos/sunflower-blossom-bloom-yellow-4570071/
+
+###openroad
+https://pixabay.com/photos/california-road-highway-hills-210913/
+
+##chimneyrock
+Personal photo. 
