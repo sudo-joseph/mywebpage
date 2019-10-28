@@ -10,8 +10,7 @@ gradients from https://www.w3schools.com/colors/colors_gradient.asp
 
 ## Font
 
-Barlow condensed from google fonts.
-<link href="https://fonts.googleapis.com/css?family=Barlow+Condensed&display=swap" rel="stylesheet">
+*Barlow Condensed* from google fonts.
 
 Social Media Icons from https://fontawesome.com/
 
