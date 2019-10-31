@@ -1,5 +1,5 @@
 # mywebpage
-A simple personal blog and landing page built with bootstrap 4.
+A simple personal blog built with bootstrap 4.
 
 ## Colortheme
 
