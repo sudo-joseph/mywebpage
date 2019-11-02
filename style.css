@@ -66,3 +66,10 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;}
+
+.navbar-image {
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+  margin-right: 1rem;
+}
