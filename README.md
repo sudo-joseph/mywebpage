@@ -1,5 +1,5 @@
 # mywebpage
-A simple personal blog built with bootstrap 4.
+A simple personal blog built with bootstrap 4. Site can be acessed via https://sudo-joseph.github.io/mywebpage/
 
 ## Build
 Use build.sh script to rebuild the site after any changes.
