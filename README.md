@@ -1,41 +1,45 @@
 # mywebpage
 A simple personal blog built with bootstrap 4.
 
-## Colortheme
+## Build
+Use build.sh script to rebuild the site after any changes.
+
+## Design Details
+### Colortheme
 
 #f2fcfc - light blue
 #f2f2f2 - light grey
 
 gradients from https://www.w3schools.com/colors/colors_gradient.asp
 
-## Font
+### Font
 
 *Barlow Condensed* from google fonts.
 
 Social Media Icons from https://fontawesome.com/
 
-## images
+### images
 
-### traffic
+#### traffic
 https://pixabay.com/photos/traffic-highway-lights-night-road-332857/
 
-### sunflower
+#### sunflower
 https://pixabay.com/photos/sunflower-blossom-bloom-yellow-4570071/
 
-### openroad
+#### openroad
 https://pixabay.com/photos/california-road-highway-hills-210913/
 
-### chimneyrock
+#### chimneyrock
 Personal photo.
 
-### rsi-example
+#### rsi-example
 wikipedia
 
-### bootstrap
+#### bootstrap
 wikipedia
 
-### tree
-from pixabay, but i cant find the link
+#### tree
+from pixabay
 
-## coffeeowl
-Not sure where this is from originally. 
+### coffeeowl
+Not sure where this is from originally.
