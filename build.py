@@ -1,36 +1,33 @@
 #!/usr/bin/env python3
 
 def main():
-    #Open all tempalte files.
-    top = open('templates/top.html').read()
-    bottom = open('templates/bottom.html').read()
+    content = [{'filename':'content/index.html',
+                'output':'docs/index.html',
 
-    #Open all content files.
-    index = open('content/index.html').read()
-    projects = open('content/projects.html').read()
-    contact = open('content/contact.html').read()
-
-    ## export compiled files with page specific string formatting.
-
-    open('docs/index.html','w').write(top.format(
-            title='Joseph\'s Blog',
-            index='active',
-            projects='',
-            contact='')
-             + index + bottom)
-    open('docs/projects.html','w').write(top.format(
-            title='Joseph\'s Projects',
-            index='',
-            projects='active',
-            contact='')
-             + projects + bottom)
-    open('docs/contact.html','w').write(top.format(
-            title='Contact Me',
-            index='',
-            projects='',
-            contact='active')
-             + contact + bottom)
-
+                'formatting':{'title':'Joseph\'s Blog',
+                              'index':'active',
+                              'projects':'',
+                              'contact':'',
+                               }},
+               {'filename':'content/projects.html',
+               'output':'docs/projects.html',
+               'formatting':{'title':'Joseph\'s Projects',
+                             'index':'',
+                             'projects':'active',
+                             'contact':'',
+                              }},
+              {'filename':'content/contact.html',
+              'output':'docs/contact.html',
+              'formatting':{'title':'Contact Me',
+                            'index':'',
+                            'projects':'',
+                            'contact':'active',
+                             }}]
+    base = open('templates/base.html').read()
+    for page in content:
+        formatting = page['formatting']
+        formatting['content'] = open(page['filename']).read()
+        open(page['output'],'w').write(base.format(**formatting))
 
 if __name__ == '__main__':
     main()
