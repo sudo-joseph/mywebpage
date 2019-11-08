@@ -2,12 +2,12 @@
 
 def main():
     content = genContent()
-    template='templates/base.html'
-    base = getBase(template)
+    base ='templates/base.html'
+    template = getBase(base)
     for page in content:
         formatting = page['formatting']
         formatting['content'] = open(page['filename']).read()
-        open(page['output'],'w').write(base.format(**formatting))
+        open(page['output'],'w').write(template.format(**formatting))
 
 def genContent():
     return [{'filename':'content/index.html',
