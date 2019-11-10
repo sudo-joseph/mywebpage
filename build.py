@@ -80,7 +80,7 @@ def genIndexPage():
 def getPage(template):
     return open(template).read()
 
-genBlogPosts()
+
 
 if __name__ == '__main__':
     main()
