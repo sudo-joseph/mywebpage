@@ -21,19 +21,28 @@ def main():
                                   'publication_date':'2019-11-09',
                                   'img_link':'./img/I-80_Eastshore_Fwy.jpg',
                                   'image_subtext':'An Unending Nightmare...',
-                                  'blog_subtitle':'A proposal',
                                   'blog_text':'',
                                    }},
+                   { 'content_file':'blog/caExplore.html',
+                                   'ouput_file':'docs/caExplore.html',
+                                   'formatting':{'blog_title':'Exploring the California Coast',
+                                                 'publication_date':'2019-10-27',
+                                                 'img_link':'./img/chimneyrock.jpg',
+                                                 'image_subtext':'This might be my favorite place in the bay.',
+                                                 'blog_text':'',
+                                                  }},
+                   { 'content_file':'blog/caExplore.html',
+                                   'ouput_file':'docs/startingKickstart.html',
+                                   'formatting':{'blog_title':'Starting a Coding Bootcamp',
+                                                 'publication_date':'2019-10-01',
+                                                 'img_link':'https://i.giphy.com/media/o0vwzuFwCGAFO/giphy.webp',
+                                                 'image_subtext':'An Unending Nightmare...',
+                                                 'blog_subtitle':'A proposal',
+                                                 'blog_text':'',
+                                                  }},
                                    ]
 
-    OTHER_PAGES = [{'filename':'content/index.html',
-                'output':'docs/index.html',
-                'formatting':{'title':'Joseph\'s Blog',
-                              'index':'active',
-                              'projects':'',
-                              'contact':'',
-                               }},
-                   {'filename':'content/projects.html',
+    OTHER_PAGES = [{'filename':'content/projects.html',
                    'output':'docs/projects.html',
                    'formatting':{'title':'Joseph\'s Projects',
                                  'index':'',
@@ -49,7 +58,7 @@ def main():
                              }}]
 
     genBlogPosts(BLOG_POSTS,INDEX_FORMTATTING)
-    # genindexPage()
+    genindexPage(BLOG_POSTS,INDEX_FORMTATTING)
     # genContentPages()
 
 def genBlogPosts(blog_posts,index_formatting):
@@ -60,12 +69,18 @@ def genBlogPosts(blog_posts,index_formatting):
     site_base ='templates/base.html'
     blog_base_template = getPage(blog_base)
     site_base_template = getPage(site_base)
-
     for post in blog_posts:
         formatting = post['formatting']
         formatting['blog_text']=getPage(post['content_file'])
         index_formatting['content']=blog_base_template.format(**formatting)
         open(post['ouput_file'],'w').write(site_base_template.format(**index_formatting))
+
+def genIndexPage(blog_posts,index_formatting):
+    index_blog_entry = 'templates/index_blog_entry_base.html'
+    index_blog_post_template = getPage(index_blog_entry)
+    blog_post_summaries = ''
+    for post in blog_posts:
+        blog_post_summaries += index_blog_post_template.format(**formatting)
 
 
 def genContentPages():
@@ -78,15 +93,6 @@ def genContentPages():
         formatting = page['formatting']
         formatting['content'] = open(page['filename']).read()
         open(page['output'],'w').write(template.format(**formatting))
-
-
-def genIndexPage(blog_posts,index_formatting):
-    return #to-do fix broken code here .
-    index_blog_entry = 'templates/index_blog_entry_base.html'
-    index_blog_post_template = getPage(index_blog_entry)
-    blog_post_summaries = ''
-    for post in blog_posts:
-        blog_post_summaries += index_blog_post_template.format(**formatting)
 
 
 def getPage(template):
