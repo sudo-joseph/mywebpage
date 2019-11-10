@@ -3,7 +3,7 @@
 from functools import partial
 
 def main():
-    content = genContent()
+    content = getContent()
     base ='templates/base.html'
     template = getPage(base)
     for page in content:
@@ -11,9 +11,9 @@ def main():
         formatting['content'] = open(page['filename']).read()
         open(page['output'],'w').write(template.format(**formatting))
 
-def genContent():
+def getContent():
     """
-    genContent()
+    getContent()
 
     Generates blog content for templates.
     """
@@ -68,6 +68,13 @@ def genBlogPosts():
         index_formatting['content']=blog_base_template.format(**formatting)
         open(post['ouput_file'],'w').write(site_base_template.format(**index_formatting))
 
+def genIndexPage():
+    return #to-do fix broken code here .
+    index_blog_entry = 'templates/index_blog_entry_base.html'
+    index_blog_post_template = getPage(index_blog_entry)
+    blog_post_summaries = ''
+    for post in blog_posts:
+        blog_post_summaries += index_blog_post_template.format(**formatting)
 
 
 def getPage(template):
