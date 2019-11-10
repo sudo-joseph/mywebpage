@@ -86,7 +86,7 @@
 }
 
 .blog-image-box {
-  margin:1rem;
+  margin: 1rem;
   max-width: 25%;
 }
 
@@ -100,8 +100,6 @@
 }
 
 .blog-image-subtext {
-
   text-align: center;
-  margin:0.5rem;
-
+  margin: 0.5rem;
 }
