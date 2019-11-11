@@ -3,6 +3,7 @@
 __author__ = 'Joseph Reid'
 
 import datetime
+import string
 
 def main():
     """
@@ -103,7 +104,7 @@ def genIndexPage(blog_posts,index_page,index_formatting,site_base,blog_preview_b
     for post in blog_posts:
         formatting = post['formatting']
         blog_content = getPage(post['content_file'])
-        first_par = blog_content.split('</p>')[0] + '</p>'
+        first_par = ''.join(blog_content.split('</p>')[:2]) + '</p>'
         formatting['blog_text']=first_par #need to truncate blog text better
         blog_post_previews += index_blog_preview_template.format(**formatting)
     site_template = getPage(site_base)
