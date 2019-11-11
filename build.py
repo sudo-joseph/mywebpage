@@ -26,7 +26,7 @@ def main():
                                  'blog_text':'',
                                  'output_link':'./caExplore.html',
                                   }},
-                   { 'content_file':'blog/caExplore.html',
+                   { 'content_file':'blog/startingKickstart.html',
                      'ouput_file':'docs/startingKickstart.html',
                      'formatting':{'blog_title':'Starting a Coding Bootcamp',
                                  'publication_date':'2019-10-01',
@@ -66,9 +66,9 @@ def main():
     INDEX_BASE = 'templates/index_base.html'
 
     genBlogPosts(BLOG_POSTS,INDEX_FORMATTING,BLOG_BASE,SITE_BASE)
-    genIndexPage(BLOG_POSTS,INDEX_FORMATTING,SITE_BASE,BLOG_PREVIEW_BASE,INDEX_BASE)
+    genIndexPage(BLOG_POSTS,INDEX_PAGE,INDEX_FORMATTING,SITE_BASE,BLOG_PREVIEW_BASE,INDEX_BASE)
     genContentPages(SITE_BASE,OTHER_PAGES)
-    addCopyRight()
+    # addCopyRight()
 
 def genBlogPosts(blog_posts,index_formatting,blog_base,site_base):
     """
