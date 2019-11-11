@@ -9,12 +9,6 @@ def main():
     main() - Main Loop for Static Site Generator.
     """
 
-    INDEX_FORMTATTING = {'title':'Joseph\'s Blog',
-                              'index':'active',
-                              'projects':'',
-                              'contact':'',
-                               }
-
     BLOG_POSTS = [{ 'content_file':'blog/JosephLanes.html',
                     'ouput_file':'docs/JosephLanes.html',
                     'formatting':{'blog_title':'A plan to fix I-80 in Berkeley (for me)',
@@ -22,24 +16,28 @@ def main():
                                   'img_link':'./img/I-80_Eastshore_Fwy.jpg',
                                   'image_subtext':'An Unending Nightmare...',
                                   'blog_text':'',
+                                  'output_link':'./JosephLanes.html',
+
                                    }},
+                   {   'content_file':'blog/caExplore.html',
+                       'ouput_file':'docs/caExplore.html',
+                       'formatting':{'blog_title':'Exploring the California Coast',
+                                 'publication_date':'2019-10-27',
+                                 'img_link':'./img/chimneyrock.jpg',
+                                 'image_subtext':'This might be my favorite place in the bay.',
+                                 'blog_text':'',
+                                 'output_link':'./caExplore.html',
+                                  }},
                    { 'content_file':'blog/caExplore.html',
-                                   'ouput_file':'docs/caExplore.html',
-                                   'formatting':{'blog_title':'Exploring the California Coast',
-                                                 'publication_date':'2019-10-27',
-                                                 'img_link':'./img/chimneyrock.jpg',
-                                                 'image_subtext':'This might be my favorite place in the bay.',
-                                                 'blog_text':'',
-                                                  }},
-                   { 'content_file':'blog/caExplore.html',
-                                   'ouput_file':'docs/startingKickstart.html',
-                                   'formatting':{'blog_title':'Starting a Coding Bootcamp',
-                                                 'publication_date':'2019-10-01',
-                                                 'img_link':'https://i.giphy.com/media/o0vwzuFwCGAFO/giphy.webp',
-                                                 'image_subtext':'An Unending Nightmare...',
-                                                 'blog_subtitle':'A proposal',
-                                                 'blog_text':'',
-                                                  }},
+                     'ouput_file':'docs/startingKickstart.html',
+                     'formatting':{'blog_title':'Starting a Coding Bootcamp',
+                                 'publication_date':'2019-10-01',
+                                 'img_link':'https://i.giphy.com/media/o0vwzuFwCGAFO/giphy.webp',
+                                 'image_subtext':'An Unending Nightmare...',
+                                 'blog_subtitle':'A proposal',
+                                 'blog_text':'',
+                                 'output_link':'./startingKickstart.html',
+                                  }},
                                    ]
 
     OTHER_PAGES = [{'filename':'content/projects.html',
@@ -56,17 +54,25 @@ def main():
                                 'projects':'',
                                 'contact':'active',
                              }}]
+    INDEX_FORMTATTING = {'title':'Joseph\'s Blog',
+                              'index':'active',
+                              'projects':'',
+                              'contact':'',
+                               }
 
-    genBlogPosts(BLOG_POSTS,INDEX_FORMTATTING)
-    genindexPage(BLOG_POSTS,INDEX_FORMTATTING)
-    # genContentPages()
+    BLOG_BASE ='templates/blog_base.html'
+    SITE_BASE ='templates/base.html'
+    BLOG_PREVIEW_BASE='templates/index_blog_preview_base.html'
+    INDEX_BASE = 'templates/index_base.html'
 
-def genBlogPosts(blog_posts,index_formatting):
+    genBlogPosts(BLOG_POSTS,INDEX_FORMTATTING,BLOG_BASE,SITE_BASE)
+    genIndexPage(BLOG_POSTS,INDEX_FORMTATTING,SITE_BASE,BLOG_PREVIEW_BASE,INDEX_BASE)
+    genContentPages(SITE_BASE,OTHER_PAGES)
+
+def genBlogPosts(blog_posts,index_formatting,blog_base,site_base):
     """
-    genBlogPosts() - Generates blog posts.
+    genBlogPosts() - Generates blog posts based on template and content files in blog/
     """
-    blog_base ='templates/blog_base.html'
-    site_base ='templates/base.html'
     blog_base_template = getPage(blog_base)
     site_base_template = getPage(site_base)
     for post in blog_posts:
@@ -75,21 +81,30 @@ def genBlogPosts(blog_posts,index_formatting):
         index_formatting['content']=blog_base_template.format(**formatting)
         open(post['ouput_file'],'w').write(site_base_template.format(**index_formatting))
 
-def genIndexPage(blog_posts,index_formatting):
-    index_blog_entry = 'templates/index_blog_entry_base.html'
-    index_blog_post_template = getPage(index_blog_entry)
-    blog_post_summaries = ''
+def genIndexPage(blog_posts,index_formatting,site_base,blog_preview_base,index_base):
+    """
+    genIndexPage(blog_posts,index_formatting,blog_base,site_base)
+
+    Generates blog post preview elements on site landing page.
+    """
+
+    index_blog_preview_template = getPage(blog_preview_base)
+    blog_post_previews = ''
     for post in blog_posts:
-        blog_post_summaries += index_blog_post_template.format(**formatting)
+        formatting = post['formatting']
+        formatting['blog_text']=getPage(post['content_file'])  #need to truncate blog text better
+        blog_post_previews += index_blog_preview_template.format(**formatting)
+    site_template = getPage(site_base)
+    index_template = getPage(index_base)
+    index_formatting['content'] = index_template.format(blog_posts=blog_post_previews)
+    open('docs/index.html','w').write(site_template.format(**index_formatting))
 
-
-def genContentPages():
+def genContentPages(site_base,other_pages):
     """
     genContntPages() - Generates other pages.
     """
-    base ='templates/base.html'
-    template = getPage(base)
-    for page in OTHER_PAGES:
+    template = getPage(site_base)
+    for page in other_pages:
         formatting = page['formatting']
         formatting['content'] = open(page['filename']).read()
         open(page['output'],'w').write(template.format(**formatting))
