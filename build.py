@@ -8,10 +8,19 @@ def main():
     """
     main() - Main Loop for Static Site Generator.
     """
-    BLOG_POSTS = [{ 'content_file':'blog/JosephLanes.html',
+    BLOG_POSTS = [{ 'content_file':'blog/thanksgiving.html',
+                    'ouput_file':'docs/thanksgiving.html',
+                    'formatting':{'blog_title':'Thanksgiving Can\'t Come Soon Enough',
+                                  'publication_date':'2019-11-09',
+                                  'img_link':'./img/thanksgiving.jpg',
+                                  'image_subtext':'The longest two weeks of the year...',
+                                  'blog_text':'',
+                                  'output_link':'./thanksgiving.html',
+                                   }},
+                   { 'content_file':'blog/JosephLanes.html',
                     'ouput_file':'docs/JosephLanes.html',
                     'formatting':{'blog_title':'A plan to fix I-80 in Berkeley (for me)',
-                                  'publication_date':'2019-11-09',
+                                  'publication_date':'2019-11-01',
                                   'img_link':'./img/I-80_Eastshore_Fwy.jpg',
                                   'image_subtext':'An Unending Nightmare...',
                                   'blog_text':'',
@@ -93,7 +102,9 @@ def genIndexPage(blog_posts,index_page,index_formatting,site_base,blog_preview_b
     blog_post_previews = ''
     for post in blog_posts:
         formatting = post['formatting']
-        formatting['blog_text']=getPage(post['content_file'])  #need to truncate blog text better
+        blog_content = getPage(post['content_file'])
+        first_par = blog_content.split('</p>')[0] + '</p>'
+        formatting['blog_text']=first_par #need to truncate blog text better
         blog_post_previews += index_blog_preview_template.format(**formatting)
     site_template = getPage(site_base)
     index_template = getPage(index_base)
