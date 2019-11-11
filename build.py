@@ -2,13 +2,12 @@
 
 __author__ = 'Joseph Reid'
 
-#Constants
+import datetime
 
 def main():
     """
     main() - Main Loop for Static Site Generator.
     """
-
     BLOG_POSTS = [{ 'content_file':'blog/JosephLanes.html',
                     'ouput_file':'docs/JosephLanes.html',
                     'formatting':{'blog_title':'A plan to fix I-80 in Berkeley (for me)',
@@ -17,7 +16,6 @@ def main():
                                   'image_subtext':'An Unending Nightmare...',
                                   'blog_text':'',
                                   'output_link':'./JosephLanes.html',
-
                                    }},
                    {   'content_file':'blog/caExplore.html',
                        'ouput_file':'docs/caExplore.html',
@@ -54,7 +52,9 @@ def main():
                                 'projects':'',
                                 'contact':'active',
                              }}]
-    INDEX_FORMTATTING = {'title':'Joseph\'s Blog',
+
+    INDEX_PAGE = 'docs/index.html'
+    INDEX_FORMATTING = {'title':'Joseph\'s Blog',
                               'index':'active',
                               'projects':'',
                               'contact':'',
@@ -65,9 +65,10 @@ def main():
     BLOG_PREVIEW_BASE='templates/index_blog_preview_base.html'
     INDEX_BASE = 'templates/index_base.html'
 
-    genBlogPosts(BLOG_POSTS,INDEX_FORMTATTING,BLOG_BASE,SITE_BASE)
-    genIndexPage(BLOG_POSTS,INDEX_FORMTATTING,SITE_BASE,BLOG_PREVIEW_BASE,INDEX_BASE)
+    genBlogPosts(BLOG_POSTS,INDEX_FORMATTING,BLOG_BASE,SITE_BASE)
+    genIndexPage(BLOG_POSTS,INDEX_FORMATTING,SITE_BASE,BLOG_PREVIEW_BASE,INDEX_BASE)
     genContentPages(SITE_BASE,OTHER_PAGES)
+    addCopyRight()
 
 def genBlogPosts(blog_posts,index_formatting,blog_base,site_base):
     """
@@ -81,7 +82,7 @@ def genBlogPosts(blog_posts,index_formatting,blog_base,site_base):
         index_formatting['content']=blog_base_template.format(**formatting)
         open(post['ouput_file'],'w').write(site_base_template.format(**index_formatting))
 
-def genIndexPage(blog_posts,index_formatting,site_base,blog_preview_base,index_base):
+def genIndexPage(blog_posts,index_page,index_formatting,site_base,blog_preview_base,index_base):
     """
     genIndexPage(blog_posts,index_formatting,blog_base,site_base)
 
@@ -97,7 +98,7 @@ def genIndexPage(blog_posts,index_formatting,site_base,blog_preview_base,index_b
     site_template = getPage(site_base)
     index_template = getPage(index_base)
     index_formatting['content'] = index_template.format(blog_posts=blog_post_previews)
-    open('docs/index.html','w').write(site_template.format(**index_formatting))
+    open(index_page,'w').write(site_template.format(**index_formatting))
 
 def genContentPages(site_base,other_pages):
     """
@@ -113,6 +114,12 @@ def genContentPages(site_base,other_pages):
 def getPage(template):
     return open(template).read()
 
+# def addCopyRight(index_page,blog_posts,other_pages):
+#     blogpages = [page['ouput_file'] for page in blog_posts]
+#
+#     other_pages =
+#
+#     pages = index_page +
 
 
 if __name__ == '__main__':
