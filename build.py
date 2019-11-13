@@ -41,7 +41,7 @@ def main():
                      'formatting':{'blog_title':'Starting a Coding Bootcamp',
                                  'publication_date':'2019-10-01',
                                  'img_link':'https://i.giphy.com/media/o0vwzuFwCGAFO/giphy.webp',
-                                 'image_subtext':'An Unending Nightmare...',
+                                 'image_subtext':'Here we go....',
                                  'blog_subtitle':'A proposal',
                                  'blog_text':'',
                                  'output_link':'./startingKickstart.html',
