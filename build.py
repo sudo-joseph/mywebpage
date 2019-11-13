@@ -127,6 +127,7 @@ def getPage(template):
     return open(template).read()
 
 # def addCopyRight(index_page,blog_posts,other_pages):
+#     year = datetime.datetime.now().year
 #     blogpages = [page['ouput_file'] for page in blog_posts]
 #
 #     other_pages =

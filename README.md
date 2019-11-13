@@ -50,3 +50,6 @@ from pixabay
 
 coffeeowl
 Not sure where this is from originally.
+
+Thanksgiving Attribution 2.0 Generic (CC BY 2.0)
+ https://www.flickr.com/photos/30478819@N08/46888193344
