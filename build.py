@@ -9,7 +9,27 @@ def main():
     """
     main() - Main Loop for Static Site Generator.
     """
-    BLOG_POSTS = [{ 'content_file':'blog/thanksgiving.html',
+
+    blog_posts = genBlogPostList()
+    other_pages = genOtherPages()
+
+    INDEX_PAGE = 'docs/index.html'
+    INDEX_FORMATTING = {'title':'Joseph\'s Blog',
+                              'index':'active',
+                              'projects':'',
+                              'contact':'',
+                               }
+    BLOG_BASE ='templates/blog_base.html'
+    SITE_BASE ='templates/base.html'
+    BLOG_PREVIEW_BASE='templates/index_blog_preview_base.html'
+    INDEX_BASE = 'templates/index_base.html'
+
+    genBlogPosts(blog_posts,INDEX_FORMATTING,BLOG_BASE,SITE_BASE)
+    genIndexPage(blog_posts,INDEX_PAGE,INDEX_FORMATTING,SITE_BASE,BLOG_PREVIEW_BASE,INDEX_BASE)
+    genContentPages(SITE_BASE,other_pages)
+
+def genBlogPostList():
+    return [{ 'content_file':'blog/thanksgiving.html',
                     'ouput_file':'docs/thanksgiving.html',
                     'formatting':{'blog_title':'Thanksgiving Can\'t Come Soon Enough',
                                   'publication_date':'2019-11-09',
@@ -48,7 +68,9 @@ def main():
                                   }},
                                    ]
 
-    OTHER_PAGES = [{'filename':'content/projects.html',
+
+def genOtherPages():
+    return [{'filename':'content/projects.html',
                    'output':'docs/projects.html',
                    'formatting':{'title':'Joseph\'s Projects',
                                  'index':'',
@@ -62,23 +84,6 @@ def main():
                                 'projects':'',
                                 'contact':'active',
                              }}]
-
-    INDEX_PAGE = 'docs/index.html'
-    INDEX_FORMATTING = {'title':'Joseph\'s Blog',
-                              'index':'active',
-                              'projects':'',
-                              'contact':'',
-                               }
-
-    BLOG_BASE ='templates/blog_base.html'
-    SITE_BASE ='templates/base.html'
-    BLOG_PREVIEW_BASE='templates/index_blog_preview_base.html'
-    INDEX_BASE = 'templates/index_base.html'
-
-    genBlogPosts(BLOG_POSTS,INDEX_FORMATTING,BLOG_BASE,SITE_BASE)
-    genIndexPage(BLOG_POSTS,INDEX_PAGE,INDEX_FORMATTING,SITE_BASE,BLOG_PREVIEW_BASE,INDEX_BASE)
-    genContentPages(SITE_BASE,OTHER_PAGES)
-    # addCopyRight()
 
 def genBlogPosts(blog_posts,index_formatting,blog_base,site_base):
     """
