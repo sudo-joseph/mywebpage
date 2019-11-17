@@ -7,12 +7,47 @@ import string
 import glob
 import os
 import copy
+from jinja2 import Template
 
 
 def main():
     """
     main() - Main Loop for Static Site Generator.
     """
+    site_template_html =get_page('templates/base.html')
+    site_template = Template(site_template_html)
+
+    site_pages = get_page_names(root="content")
+
+    for page in site_pages:
+        options = {'title':'',
+                   'index':'',
+                   'projects':'',
+                   'contact':'',
+                   'content':'',}
+        options['content'] = get_content(page)
+        options[os.path.splitext(page)[0]] = 'active'
+        output_file = site_template.render(**options)
+        open(os.path.join("docs",page),'w').write(output_file)
+
+def get_page_names(root):
+    """
+    get_page_names(root)
+
+    Returns list of html files in directory root.
+    """
+    path_to_posts = os.path.join(root,'*.html')
+    pages = glob.glob(path_to_posts)
+    return [os.path.basename(page) for page in pages]
+
+def get_page(template):
+    return open(template).read()
+
+def get_content(page):
+    return get_page(os.path.join("content",page))
+
+
+
 
 #     blog_posts = gen_blog_post_list()
 #     other_pages = gen_other_pages()
@@ -132,8 +167,7 @@ def main():
 #         open(page['output'],'w').write(template.format(**formatting))
 
 
-# def get_page(template):
-#     return open(template).read()
+
 
 # def addCopyRight(index_page,blog_posts,other_pages):
 #     year = datetime.datetime.now().year
