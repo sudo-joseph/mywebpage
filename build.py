@@ -7,34 +7,32 @@ import string
 import glob
 import os
 import copy
-from jinja2 import Template
+# from jinja2 import Template
 import markdown
-
+from jinja2 import Environment, FileSystemLoader
 
 def main():
     """
     main() - Main Loop for Static Site Generator.
     """
-    BLOG_BASE = 'templates/blog_base.html'
-    SITE_BASE = 'templates/base.html'
+    BLOG_BASE = 'blog_base.html'
+    SITE_BASE = 'base.html'
+    JINJA_ENV = Environment(loader=FileSystemLoader('templates'))
 
-    gen_blog_posts(BLOG_BASE,SITE_BASE)
-    gen_index_page()
-    gen_projects_page()
+    gen_blog_posts(BLOG_BASE,SITE_BASE,JINJA_ENV)
+    # gen_index_page()
+    # gen_projects_page()
     gen_site_pages(SITE_BASE)
 
 def gen_site_pages(site_base):
-    site_template_html = get_page_template(site_base)
+    site_template_html = get_page(site_base)
     site_template = Template(site_template_html)
 
     site_pages = get_page_names(root="content",ext=".html")
 
     for page in site_pages:
-        options = {'title':'Joseph\s Blog',
-                   'index':'',
-                   'projects':'',
-                   'contact':'',
-                   'content':'',
+        options = {'title':'',
+
                    'year':datetime.datetime.now().year,
                    'project_pages':''}
         options['content'] = get_content(page)
@@ -53,13 +51,13 @@ def get_page_names(root,ext):
     pages = glob.glob(path_to_posts)
     return [os.path.basename(page) for page in pages]
 
-def get_page_template(template):
+def get_page(path):
     """
-    get_page(template)
+    get_page(path)
 
-    Returns string with template file specified by input var.
+    Returns string containing data in file specified by input path.
     """
-    return open(template).read()
+    return open(path).read()
 
 def get_content(page):
     """
@@ -69,31 +67,34 @@ def get_content(page):
     """
     return get_page(os.path.join("content",page))
 
-def gen_blog_posts(blog_posts,index_formatting,blog_base,site_base):
+def gen_blog_posts(blog_base,site_base,jinja_env):
     """
     gen_blog_posts() - Generates html blog posts from markdown files in blog/
     """
-    blog_base_template = get_page_template(blog_base)
-    site_base_template = get_page_template(site_base)
+    md = markdown.Markdown(extensions=["markdown.extensions.meta"])
+    # blog_base_template = get_page(blog_base)
+    blog_template = jinja_env.get_template(blog_base)
+
+    # site_base_template = get_page(site_base)
     blog_pages = get_page_names(root="blog",ext='.md')
 
-    # for page in blog_pages:
-    #
-    #
-    #
-    #
-    #     options = {'title':'Joseph\s Blog',
-    #                'index':'',
-    #                'projects':'',
-    #                'contact':'',
-    #                'content':'',
-    #                'year':datetime.datetime.now().year,
-    #                'project_pages':''}
-    #     options['content'] = get_content(page)
-    #     options[os.path.splitext(page)[0]] = 'active'
-    #     #todo move render call to seperate file
-    #     output_file = site_template.render(**options)
-    #     open(os.path.join("docs",page),'w').write(output_file)
+    for page in blog_pages:
+        content = md.convert(get_page(os.path.join('blog',page)))
+        options = {'title':'Joseph\s Blog',
+                   'index':'active',
+                   'projects':'',
+                   'contact':'',
+                   'content':'',
+                   'year':datetime.datetime.now().year,
+                   'blog_title':md.Meta["blog_title"][0],
+                   'publication_date':md.Meta["publication_date"][0],
+                   'img_link':md.Meta["img_link"][0],
+                   'image_subtext':md.Meta["image_subtext"][0],
+                   'blog_text':content,
+                   }
+        #todo move render call to seperate file
+        output_file = blog_template.render(**options)
+        open(os.path.join("docs",os.path.splitext(page)[0] + '.html'),'w').write(output_file)
 
 
 #     blog_posts = gen_blog_post_list()
