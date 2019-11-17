@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}{{blog_title}} - {% endblock %}
+{% block title %}{{content_title}} - {% endblock %}
 
 {% block content %}
 <div class="col-md-10">
   <div class="col blog-col">
     <div class='row'>
       <div class="col-md-10">
-        <h2>{{blog_title}}</h2>
+        <h2>{{content_title}}</h2>
       </div>
       <div class="col-md-2 d-none d-lg-block ">
         <em class ='date'>{{publication_date}}</em>
@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="blog_post_text">
-            {{blog_text}}
+            {{content_text}}
         </div>
       </div>
     </div>

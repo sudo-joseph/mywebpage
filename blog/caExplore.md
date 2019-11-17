@@ -1,4 +1,4 @@
-blog_title: Exploring the California Coast
+content_title: Exploring the California Coast
 publication_date: 2019-10-27
 img_link: ./img/chimneyrock.jpg
 image_subtext: This might be my favorite place in the bay.

@@ -15,11 +15,11 @@ def main():
     """
     main() - Main Loop for Static Site Generator.
     """
-    BLOG_BASE = 'blog_base.html'
+    CONTENT_BASE = 'content_base.html'
     SITE_BASE = 'base.html'
     JINJA_ENV = Environment(loader=FileSystemLoader('templates'))
 
-    gen_blog_posts(BLOG_BASE,SITE_BASE,JINJA_ENV)
+    gen_content_posts("blog",CONTENT_BASE,SITE_BASE,JINJA_ENV)
     # gen_index_page()
     # gen_projects_page()
     gen_site_pages(SITE_BASE,JINJA_ENV)
@@ -36,7 +36,6 @@ def gen_site_pages(site_base,jinja_env):
         options[os.path.splitext(page)[0]] = 'active'
         #todo move render call to seperate file
         output_file = site_template.render(**options)
-        print(output_file)
         open(os.path.join("docs",page),'w').write(output_file)
 
 def get_page_names(root,ext):
@@ -65,34 +64,33 @@ def get_content(page):
     """
     return get_page(os.path.join("content",page))
 
-def gen_blog_posts(blog_base,site_base,jinja_env):
+def gen_content_posts(page_dir,content_base,site_base,jinja_env):
     """
-    gen_blog_posts() - Generates html blog posts from markdown files in blog/
+    gen_content_posts() - Generates html content posts from markdown files in
+    provided directory.
     """
     md = markdown.Markdown(extensions=["markdown.extensions.meta"])
-    # blog_base_template = get_page(blog_base)
-    blog_template = jinja_env.get_template(blog_base)
+    content_template = jinja_env.get_template(content_base)
+    content_pages = get_page_names(page_dir,ext='.md')
 
-    # site_base_template = get_page(site_base)
-    blog_pages = get_page_names(root="blog",ext='.md')
-
-    for page in blog_pages:
-        content = md.convert(get_page(os.path.join('blog',page)))
+    for page in content_pages:
+        content = md.convert(get_page(os.path.join(page_dir,page)))
         options = {'title':'Joseph\s Blog',
                    'index':'active',
                    'projects':'',
                    'contact':'',
                    'content':'',
                    'year':datetime.datetime.now().year,
-                   'blog_title':md.Meta["blog_title"][0],
+                   'content_title':md.Meta["content_title"][0],
                    'publication_date':md.Meta["publication_date"][0],
                    'img_link':md.Meta["img_link"][0],
                    'image_subtext':md.Meta["image_subtext"][0],
-                   'blog_text':content,
+                   'content_text':content,
                    }
         #todo move render call to seperate file
-        output_file = blog_template.render(**options)
-        open(os.path.join("docs",os.path.splitext(page)[0] + '.html'),'w').write(output_file)
+        output_file = content_template.render(**options)
+        open(os.path.join("docs",os.path.splitext(page)[0] + '.html')
+                ,'w').write(output_file)
 
 
 #     blog_posts = gen_blog_post_list()

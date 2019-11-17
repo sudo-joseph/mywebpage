@@ -1,4 +1,4 @@
-blog_title: Thanksgiving Can't Come Soon Enough
+content_title: Thanksgiving Can't Come Soon Enough
 publication_date: 2019-11-09
 img_link: ./img/thanksgiving.jpg
 image_subtext: The longest two weeks of the year...

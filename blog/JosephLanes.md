@@ -1,4 +1,4 @@
-blog_title: A plan to fix I-80 in Berkeley (for me)
+content_title: A plan to fix I-80 in Berkeley (for me)
 publication_date: 2019-11-01
 img_link: ./img/I-80_Eastshore_Fwy.jpg
 image_subtext: An Unending Nightmare...

@@ -1,4 +1,4 @@
-blog_title: Starting a Coding Bootcamp
+content_title: Starting a Coding Bootcamp
 publication_date: 2019-10-01
 img_link: ./startingKickstart.html
 image_subtext: Here we go....
