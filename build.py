@@ -21,11 +21,13 @@ def main():
 
     #generate blog posts based on content in blog/
     gen_content_posts("blog",CONTENT_BASE,SITE_BASE,JINJA_ENV)
-    # gen_index_page()
+    gen_index_page()
+
     #generate project posts based on content in project/
-    gen_content_posts("project",CONTENT_BASE,SITE_BASE,JINJA_ENV)
+    gen_content_posts("projects",CONTENT_BASE,SITE_BASE,JINJA_ENV)
     # gen_project_page()
-    # gen_projects_page()
+
+    #Generate site
     gen_site_pages(SITE_BASE,JINJA_ENV)
 
 def gen_site_pages(site_base,jinja_env):

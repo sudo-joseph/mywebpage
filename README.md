@@ -53,3 +53,6 @@ Not sure where this is from originally.
 
 Thanksgiving Attribution 2.0 Generic (CC BY 2.0)
  https://www.flickr.com/photos/30478819@N08/46888193344
+
+Jinja Logo
+wikipedia - https://images.app.goo.gl/ALZCoj5Mnc9XSN2p6
