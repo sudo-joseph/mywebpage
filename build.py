@@ -14,8 +14,8 @@ def main():
     main() - Main Loop for Static Site Generator.
     """
 
-    blog_posts = genBlogPostList()
-    other_pages = genOtherPages()
+    blog_posts = gen_blog_post_list()
+    other_pages = gen_other_pages()
 
     INDEX_PAGE = 'docs/index.html'
     INDEX_FORMATTING = {'title':'Joseph\'s Blog',
@@ -28,11 +28,11 @@ def main():
     BLOG_PREVIEW_BASE='templates/index_blog_preview_base.html'
     INDEX_BASE = 'templates/index_base.html'
 
-    genBlogPosts(blog_posts,INDEX_FORMATTING,BLOG_BASE,SITE_BASE)
-    genIndexPage(blog_posts,INDEX_PAGE,INDEX_FORMATTING,SITE_BASE,BLOG_PREVIEW_BASE,INDEX_BASE)
-    genContentPages(SITE_BASE,other_pages)
+    gen_blog_posts(blog_posts,INDEX_FORMATTING,BLOG_BASE,SITE_BASE)
+    gen_index_page(blog_posts,INDEX_PAGE,INDEX_FORMATTING,SITE_BASE,BLOG_PREVIEW_BASE,INDEX_BASE)
+    gen_content_pages(SITE_BASE,other_pages)
 
-def genBlogPostList():
+def gen_blog_post_list():
     blog_dict = {'content_file':'',
                     'ouput_file':'',
                     'formatting':{'blog_title':'',
@@ -56,7 +56,7 @@ def genBlogPostList():
     return output
 
 
-def genOtherPages():
+def gen_other_pages():
     return [{'filename':'content/projects.html',
                    'output':'docs/projects.html',
                    'formatting':{'title':'Joseph\'s Projects',
