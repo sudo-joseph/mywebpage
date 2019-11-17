@@ -3,11 +3,9 @@
 __author__ = 'Joseph Reid'
 
 import datetime
-import string
 import glob
 import os
 import copy
-# from jinja2 import Template
 import markdown
 from jinja2 import Environment, FileSystemLoader
 from operator import itemgetter
@@ -116,7 +114,7 @@ def gen_preview_pages(page_dir,out_dir,preview_base,jinja_env):
                'posts':[]
                }
     options[out_dir] = 'active'
-
+    post_list = []
     for page in content_pages:
         content = md.convert(get_page(os.path.join(page_dir,page)))
         post_details = {'content_title':md.Meta["content_title"][0],
@@ -125,7 +123,8 @@ def gen_preview_pages(page_dir,out_dir,preview_base,jinja_env):
                        'image_subtext':md.Meta["image_subtext"][0],
                        'output_link':os.path.splitext(page)[0] + '.html',
                        'content_text':content,}
-        options['posts'].append(copy.deepcopy(post_details))
+        post_list.append(copy.deepcopy(post_details))
+    options['posts'] = sorted(post_list, key=lambda k: k['publication_date'],reverse=True)
     output_file = content_template.render(**options)
     open(os.path.join("docs",out_dir+".html"),'w').write(output_file)
 
