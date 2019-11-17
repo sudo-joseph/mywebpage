@@ -7,26 +7,6 @@ import glob
 import os
 import copy
 import markdown
-from jinja2 import Environment, FileSystemLoader
-
-def main():
-    """
-    main() - Main Loop for Static Site Generator.
-    """
-    CONTENT_BASE = 'content_base.html'
-    SITE_BASE = 'base.html'
-    PREVIEW_BASE = 'preview_base.html'
-    JINJA_ENV = Environment(loader=FileSystemLoader('templates'))
-
-    #generate blog posts based on content in blog/
-    gen_content_posts("blog","index",CONTENT_BASE,SITE_BASE,JINJA_ENV)
-    gen_preview_pages("blog","index",PREVIEW_BASE,JINJA_ENV)
-
-    #generate project posts based on content in project/
-    gen_content_posts("projects","projects",CONTENT_BASE,SITE_BASE,JINJA_ENV)
-    gen_preview_pages("projects","projects",PREVIEW_BASE,JINJA_ENV)
-    #Generate site
-    gen_site_pages(SITE_BASE,JINJA_ENV)
 
 def gen_site_pages(site_base,jinja_env):
     """
@@ -126,6 +106,3 @@ def gen_preview_pages(page_dir,out_dir,preview_base,jinja_env):
     options['posts'] = sorted(post_list, key=lambda k: k['publication_date'],reverse=True)
     output_file = content_template.render(**options)
     open(os.path.join("docs",out_dir+".html"),'w').write(output_file)
-
-if __name__ == '__main__':
-    main()
