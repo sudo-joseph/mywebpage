@@ -8,7 +8,6 @@ import os
 import copy
 import markdown
 from jinja2 import Environment, FileSystemLoader
-from operator import itemgetter
 
 def main():
     """
