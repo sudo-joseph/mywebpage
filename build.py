@@ -4,51 +4,60 @@ __author__ = 'Joseph Reid'
 
 import datetime
 import string
+import glob
+import os
+import copy
+
 
 def main():
     """
     main() - Main Loop for Static Site Generator.
     """
-    BLOG_POSTS = [{ 'content_file':'blog/thanksgiving.html',
-                    'ouput_file':'docs/thanksgiving.html',
-                    'formatting':{'blog_title':'Thanksgiving Can\'t Come Soon Enough',
-                                  'publication_date':'2019-11-09',
-                                  'img_link':'./img/thanksgiving.jpg',
-                                  'image_subtext':'The longest two weeks of the year...',
-                                  'blog_text':'',
-                                  'output_link':'./thanksgiving.html',
-                                   }},
-                   { 'content_file':'blog/JosephLanes.html',
-                    'ouput_file':'docs/JosephLanes.html',
-                    'formatting':{'blog_title':'A plan to fix I-80 in Berkeley (for me)',
-                                  'publication_date':'2019-11-01',
-                                  'img_link':'./img/I-80_Eastshore_Fwy.jpg',
-                                  'image_subtext':'An Unending Nightmare...',
-                                  'blog_text':'',
-                                  'output_link':'./JosephLanes.html',
-                                   }},
-                   {   'content_file':'blog/caExplore.html',
-                       'ouput_file':'docs/caExplore.html',
-                       'formatting':{'blog_title':'Exploring the California Coast',
-                                 'publication_date':'2019-10-27',
-                                 'img_link':'./img/chimneyrock.jpg',
-                                 'image_subtext':'This might be my favorite place in the bay.',
-                                 'blog_text':'',
-                                 'output_link':'./caExplore.html',
-                                  }},
-                   { 'content_file':'blog/startingKickstart.html',
-                     'ouput_file':'docs/startingKickstart.html',
-                     'formatting':{'blog_title':'Starting a Coding Bootcamp',
-                                 'publication_date':'2019-10-01',
-                                 'img_link':'https://i.giphy.com/media/o0vwzuFwCGAFO/giphy.webp',
-                                 'image_subtext':'Here we go...',
-                                 'blog_subtitle':'A proposal',
-                                 'blog_text':'',
-                                 'output_link':'./startingKickstart.html',
-                                  }},
-                                   ]
 
-    OTHER_PAGES = [{'filename':'content/projects.html',
+    blog_posts = genBlogPostList()
+    other_pages = genOtherPages()
+
+    INDEX_PAGE = 'docs/index.html'
+    INDEX_FORMATTING = {'title':'Joseph\'s Blog',
+                              'index':'active',
+                              'projects':'',
+                              'contact':'',
+                               }
+    BLOG_BASE ='templates/blog_base.html'
+    SITE_BASE ='templates/base.html'
+    BLOG_PREVIEW_BASE='templates/index_blog_preview_base.html'
+    INDEX_BASE = 'templates/index_base.html'
+
+    genBlogPosts(blog_posts,INDEX_FORMATTING,BLOG_BASE,SITE_BASE)
+    genIndexPage(blog_posts,INDEX_PAGE,INDEX_FORMATTING,SITE_BASE,BLOG_PREVIEW_BASE,INDEX_BASE)
+    genContentPages(SITE_BASE,other_pages)
+
+def genBlogPostList():
+    blog_dict = {'content_file':'',
+                    'ouput_file':'',
+                    'formatting':{'blog_title':'',
+                                  'publication_date':'',
+                                  'img_link':'',
+                                  'image_subtext':'',
+                                  'blog_text':'',
+                                  'output_link':'',
+                                   }}
+    blog_pages = glob.glob("blog/*.html")
+    output = []    #todo better formatting for page details
+
+    print(blog_pages)
+    for page in blog_pages:
+        page_base = os.path.basename(page)
+        blog_dict['content_file'] = os.path.join("blog",page_base)
+        blog_dict['ouput_file'] = os.path.join("docs",page_base)
+        blog_dict['formatting']["blog_title"] = page_base.split('.')[0]
+        output.append(copy.deepcopy(blog_dict))
+    print(output)
+    return output
+
+
+def genOtherPages():
+    return [{'filename':'content/projects.html',
                    'output':'docs/projects.html',
                    'formatting':{'title':'Joseph\'s Projects',
                                  'index':'',
