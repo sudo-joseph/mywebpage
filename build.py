@@ -15,12 +15,19 @@ def main():
     """
     main() - Main Loop for Static Site Generator.
     """
-    site_template_html =get_page('templates/base.html')
+    BLOG_BASE = 'templates/blog_base.html'
+    SITE_BASE = 'templates/base.html'
+
+    gen_blog_posts(BLOG_BASE,SITE_BASE)
+    gen_index_page()
+    gen_projects_page()
+    gen_site_pages(SITE_BASE)
+
+def gen_site_pages(site_base):
+    site_template_html = get_page_template(site_base)
     site_template = Template(site_template_html)
 
-    site_pages = get_page_names(root="content")
-    blog_pages = get_page_names(root="blog")
-    year = datetime.datetime.now().year
+    site_pages = get_page_names(root="content",ext=".html")
 
     for page in site_pages:
         options = {'title':'Joseph\s Blog',
@@ -28,25 +35,25 @@ def main():
                    'projects':'',
                    'contact':'',
                    'content':'',
-                   'year':year,
-                   'blog_pages':blog_pages,
+                   'year':datetime.datetime.now().year,
                    'project_pages':''}
         options['content'] = get_content(page)
         options[os.path.splitext(page)[0]] = 'active'
+        #todo move render call to seperate file
         output_file = site_template.render(**options)
         open(os.path.join("docs",page),'w').write(output_file)
 
-def get_page_names(root):
+def get_page_names(root,ext):
     """
     get_page_names(root)
 
     Returns list of html files in directory root.
     """
-    path_to_posts = os.path.join(root,'*.html')
+    path_to_posts = os.path.join(root,'*'+ ext)
     pages = glob.glob(path_to_posts)
     return [os.path.basename(page) for page in pages]
 
-def get_page(template):
+def get_page_template(template):
     """
     get_page(template)
 
@@ -62,7 +69,31 @@ def get_content(page):
     """
     return get_page(os.path.join("content",page))
 
+def gen_blog_posts(blog_posts,index_formatting,blog_base,site_base):
+    """
+    gen_blog_posts() - Generates html blog posts from markdown files in blog/
+    """
+    blog_base_template = get_page_template(blog_base)
+    site_base_template = get_page_template(site_base)
+    blog_pages = get_page_names(root="blog",ext='.md')
 
+    # for page in blog_pages:
+    #
+    #
+    #
+    #
+    #     options = {'title':'Joseph\s Blog',
+    #                'index':'',
+    #                'projects':'',
+    #                'contact':'',
+    #                'content':'',
+    #                'year':datetime.datetime.now().year,
+    #                'project_pages':''}
+    #     options['content'] = get_content(page)
+    #     options[os.path.splitext(page)[0]] = 'active'
+    #     #todo move render call to seperate file
+    #     output_file = site_template.render(**options)
+    #     open(os.path.join("docs",page),'w').write(output_file)
 
 
 #     blog_posts = gen_blog_post_list()
@@ -140,18 +171,7 @@ def get_content(page):
 #     gen_content_pages(SITE_BASE,OTHER_PAGES)
 #     # addCopyRight()
 #
-# def gen_blog_posts(blog_posts,index_formatting,blog_base,site_base):
-#     """
-#     gen_blog_posts() - Generates blog posts based on template and content files in blog/
-#     """
-#     blog_base_template = get_page(blog_base)
-#     site_base_template = get_page(site_base)
-#     for post in blog_posts:
-#         formatting = post['formatting']
-#         formatting['blog_text']=get_page(post['content_file'])
-#         index_formatting['content']=blog_base_template.format(**formatting)
-#         open(post['ouput_file'],'w').write(site_base_template.format(**index_formatting))
-#
+
 # def gen_index_page(blog_posts,index_page,index_formatting,site_base,blog_preview_base,index_base):
 #     """
 #     gen_index_page(blog_posts,index_formatting,blog_base,site_base)
