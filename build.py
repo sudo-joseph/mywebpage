@@ -22,11 +22,11 @@ def main():
     JINJA_ENV = Environment(loader=FileSystemLoader('templates'))
 
     #generate blog posts based on content in blog/
-    gen_content_posts("blog",CONTENT_BASE,SITE_BASE,JINJA_ENV)
+    gen_content_posts("blog","index",CONTENT_BASE,SITE_BASE,JINJA_ENV)
     gen_preview_pages("blog","index",PREVIEW_BASE,JINJA_ENV)
 
     #generate project posts based on content in project/
-    gen_content_posts("projects",CONTENT_BASE,SITE_BASE,JINJA_ENV)
+    gen_content_posts("projects","projects",CONTENT_BASE,SITE_BASE,JINJA_ENV)
     gen_preview_pages("projects","projects",PREVIEW_BASE,JINJA_ENV)
     #Generate site
     gen_site_pages(SITE_BASE,JINJA_ENV)
@@ -77,7 +77,7 @@ def get_content(page):
     """
     return get_page(os.path.join("content",page))
 
-def gen_content_posts(page_dir,content_base,site_base,jinja_env):
+def gen_content_posts(page_dir,out_dir,content_base,site_base,jinja_env):
     """
     gen_content_posts() - Generates html content posts from markdown files in
     provided directory.
@@ -99,7 +99,7 @@ def gen_content_posts(page_dir,content_base,site_base,jinja_env):
                'image_subtext':md.Meta["image_subtext"][0],
                'content_text':content,
                }
-        options[page_dir] = 'active'
+        options[out_dir] = 'active'
         output_file = content_template.render(**options)
         open(os.path.join("docs",os.path.splitext(page)[0] + '.html')
             ,'w').write(output_file)
@@ -123,6 +123,7 @@ def gen_preview_pages(page_dir,out_dir,preview_base,jinja_env):
                        'publication_date':md.Meta["publication_date"][0],
                        'img_link':md.Meta["img_link"][0],
                        'image_subtext':md.Meta["image_subtext"][0],
+                       'output_link':os.path.splitext(page)[0] + '.html',
                        'content_text':content,}
         options['posts'].append(copy.deepcopy(post_details))
     output_file = content_template.render(**options)

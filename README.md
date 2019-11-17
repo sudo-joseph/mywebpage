@@ -1,5 +1,5 @@
 # mywebpage
-A simple personal blog built with bootstrap 4. Site can be acessed via https://sudo-joseph.github.io/mywebpage/
+A simple static site generator for my personal blog built with python3, jinja2m and bootstrap 4. Site can be accessed via https://sudo-joseph.github.io/mywebpage/
 
 ## Build
 Use build.py script to rebuild the site after any making any changes.
