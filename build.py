@@ -18,13 +18,18 @@ def main():
     site_template = Template(site_template_html)
 
     site_pages = get_page_names(root="content")
+    blog_pages = get_page_names(root="blog")
+    year = datetime.datetime.now().year
 
     for page in site_pages:
-        options = {'title':'',
+        options = {'title':'Joseph\s Blog',
                    'index':'',
                    'projects':'',
                    'contact':'',
-                   'content':'',}
+                   'content':'',
+                   'year':year,
+                   'blog_pages':blog_pages,
+                   'project_pages':''}
         options['content'] = get_content(page)
         options[os.path.splitext(page)[0]] = 'active'
         output_file = site_template.render(**options)
@@ -41,9 +46,19 @@ def get_page_names(root):
     return [os.path.basename(page) for page in pages]
 
 def get_page(template):
+    """
+    get_page(template)
+
+    Returns string with template file specified by input var.
+    """
     return open(template).read()
 
 def get_content(page):
+    """
+    get_page(template)
+
+    Returns string with page content specified by input var.
+    """
     return get_page(os.path.join("content",page))
 
 
