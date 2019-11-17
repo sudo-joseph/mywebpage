@@ -8,6 +8,7 @@ import glob
 import os
 import copy
 from jinja2 import Template
+import markdown
 
 
 def main():
