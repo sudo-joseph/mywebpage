@@ -22,23 +22,21 @@ def main():
     gen_blog_posts(BLOG_BASE,SITE_BASE,JINJA_ENV)
     # gen_index_page()
     # gen_projects_page()
-    gen_site_pages(SITE_BASE)
+    gen_site_pages(SITE_BASE,JINJA_ENV)
 
-def gen_site_pages(site_base):
-    site_template_html = get_page(site_base)
-    site_template = Template(site_template_html)
-
+def gen_site_pages(site_base,jinja_env):
+    site_template = jinja_env.get_template(site_base)
     site_pages = get_page_names(root="content",ext=".html")
 
     for page in site_pages:
         options = {'title':'',
-
                    'year':datetime.datetime.now().year,
                    'project_pages':''}
         options['content'] = get_content(page)
         options[os.path.splitext(page)[0]] = 'active'
         #todo move render call to seperate file
         output_file = site_template.render(**options)
+        print(output_file)
         open(os.path.join("docs",page),'w').write(output_file)
 
 def get_page_names(root,ext):
