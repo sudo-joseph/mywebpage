@@ -6,6 +6,10 @@ import utils
 import sys
 
 def main():
+    """
+    main() - Main Loop for manage.py.
+    """
+
     if sys.argv[1] == "build":
         print("Building...")
         utils.build()

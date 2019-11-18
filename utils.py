@@ -13,7 +13,7 @@ import string
 
 def build():
     """
-    main() - Main Loop for Static Site Generator.
+    build() - builds site files.
     """
     CONTENT_BASE = "content_base.html"
     SITE_BASE = "base.html"
@@ -52,9 +52,9 @@ def gen_site_pages(site_base,jinja_env):
 
 def get_page_names(root,ext):
     """
-    get_page_names(root)
+    get_page_names(root,ext)
 
-    Returns list of html files in directory root.
+    Returns list of files that have extention ext in directory root
     """
     path_to_posts = os.path.join(root,'*'+ ext)
     pages = glob.glob(path_to_posts)
@@ -70,9 +70,9 @@ def get_page(path):
 
 def get_content(page):
     """
-    get_page(template)
+    get_content(template)
 
-    Returns string with page content specified by input var.
+    Returns string with page content specified by input page.
     """
     return get_page(os.path.join("content",page))
 
@@ -104,6 +104,13 @@ def gen_content_posts(page_dir,out_dir,content_base,site_base,jinja_env):
             ,'w').write(output_file)
 
 def gen_preview_pages(page_dir,out_dir,preview_base,jinja_env):
+    """
+    gen_preview_pages(page_dir,out_dir,preview_base,jinja_env)
+
+    Generates html page with preveiws for pages in input page_dir, saves to
+    out_dir, and is based on template in preview_base and jinja_env.
+
+    """
     md = markdown.Markdown(extensions=["markdown.extensions.meta"])
     content_template = jinja_env.get_template(preview_base)
     content_pages = get_page_names(page_dir,ext='.md')
@@ -130,6 +137,11 @@ def gen_preview_pages(page_dir,out_dir,preview_base,jinja_env):
     open(os.path.join("docs",out_dir+".html"),'w').write(output_file)
 
 def gen_new_post(page_dir="blog",template='page_markup_base.md'):
+    """
+    gen_new_post - create new page from template
+
+    Creates a new page in directory specified based on template with jinja.
+    """
     jinja_env = Environment(loader=FileSystemLoader("templates"))
     new_page_template = jinja_env.get_template(template)
     title = input("Enter page title: ")
@@ -143,6 +155,11 @@ def gen_new_post(page_dir="blog",template='page_markup_base.md'):
     # subprocess.call(["xdg-open", path_name])
 
 def clean_title(title):
+    """
+    clean_title(title)
+
+    Returns inputed title in lower_snake_case with no punctuation.
+    """
     title = title.lower()
     title = title.split()
     title = [''.join(filter(str.isalnum, word)) for word in title]

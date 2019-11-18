@@ -2,7 +2,15 @@
 A simple static site generator for my personal blog built with python3, jinja2m and bootstrap 4. Site can be accessed via https://sudo-joseph.github.io/mywebpage/
 
 ## Build
-Use build.py script to rebuild the site after any making any changes.
+
+Use manage.py to build site or generate new blog/project pages.
+
+  Usage:
+      Rebuild site: python3 manage.py build
+
+      Create new page: python3 manage.py new {type}
+          {type} - optional argument for page type (blog or projects),
+          defaults to blog.
 
 ## Design Details
 
