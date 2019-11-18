@@ -12,11 +12,11 @@ def main():
         print("Build Complete.")
     elif sys.argv[1] == "new":
         if len(sys.argv) == 3:
-            if sys.argv == 'blog':
+            if sys.argv[2] == 'blog':
                 print("Generating new blog post")
                 utils.gen_new_post("blog")
                 print("Page Generated")
-            elif sys.argv == 'project':
+            elif sys.argv[2] == 'project':
                 print("Generating new project post")
                 utils.gen_new_post("projects")
                 print("Page Generated")
@@ -38,9 +38,11 @@ def helper():
     """
     help_msg = """
         Usage:
-            Rebuild site: python manage.py build
-            Create new page: python manage.py new {type}
-                {type} - optional argument for page type (blog or projects), defaults to blog.
+            Rebuild site: python3 manage.py build
+
+            Create new page: python3 manage.py new {type}
+                {type} - optional argument for page type (blog or projects),
+                defaults to blog.
 
         """
     print(help_msg)

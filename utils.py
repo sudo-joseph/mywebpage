@@ -8,7 +8,8 @@ import os
 import copy
 import markdown
 from jinja2 import Environment, FileSystemLoader
-
+import subprocess
+import string
 
 def build():
     """
@@ -137,12 +138,13 @@ def gen_new_post(page_dir="blog",template='page_markup_base.md'):
                }
 
     output_file = new_page_template.render(**options)
-    open(os.path.join(page_dir,clean_title(title)+'.md'),'w').write(output_file)
+    path_name = os.path.join(page_dir,clean_title(title)+'.md')
+    open(path_name,'w').write(output_file)
+    # subprocess.call(["xdg-open", path_name])
 
 def clean_title(title):
     title = title.lower()
     title = title.split()
+    title = [''.join(filter(str.isalnum, word)) for word in title]
     title = '_'.join(title)
     return(title)
-
-gen_new_post()
