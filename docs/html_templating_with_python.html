@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title> - Joseph\s Blog</title>
+  <title>HTML Templating with Python & jinja2 - Joseph\s Blog</title>
 
   <!-- Bootstrap -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -36,10 +36,10 @@
 
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item ">
+          <li class="nav-item active">
             <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="projects.html">Projects</a>
           </li>
           <li class="nav-item ">
@@ -66,10 +66,10 @@
               <div class="col-md">
                 <ul class="nav nav-pills flex-column">
                   <li class="nav-item sidebar-buttons">
-                    <a class="nav-link " href="index.html">Home</a>
+                    <a class="nav-link active" href="index.html">Home</a>
                   </li>
                   <li class="nav-item   sidebar-buttons">
-                    <a class="nav-link active" href="projects.html">Projects</a>
+                    <a class="nav-link " href="projects.html">Projects</a>
                   </li>
                   <li class="nav-item sidebar-buttons">
                     <a class="nav-link " href="contact.html">Contact Me</a>
@@ -93,125 +93,42 @@
       </div>
       
 <div class="col-md-10">
-  <div class="page-col">
-
-    
-    <div class="row blogpost">
-      <div class="col-3">
-        <img class="image-fluid blog-image-thumb" src="./img/Login_screen_of_a_text_based_MUD..jpg">
+  <div class="col blog-col">
+    <div class='row'>
+      <div class="col-md-10">
+        <h2>HTML Templating with Python & jinja2</h2>
       </div>
-      <div class="col-9 blog-preview">
-        <div class="row">
-          <div class="col-10">
-            <h2><a href="building_a_basic_mud_in_python3.html">Building a Basic MUD in Python3</a></h2>
+      <div class="col-md-2 d-none d-lg-block ">
+        <em class ='date'>2019-11-17</em>
+      </div>
+    </div>
+    <div class='row'>
+      <div class="col">
+        <div class="float-right">
+          <div class="row">
+            <div class="col blog-side-image ">
+              <img class="img-fluid rounded float-right blog-image" src=./img/1200px-Jinja_software_logo.svg.png>
+            </div>
           </div>
-          <div class="col-2">
-            <h6><em>2019-11-17</em></h6>
+          <div class="row">
+            <div class="col blog-image-subtext">
+              <em class=''>Python3 + jinja2: A versatile combo</em>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <p class=""><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur....</p>
-          </div>
+        <div class="blog_post_text">
+            <p>Over the past week we have been learning how to use the jinja2 templating library instead of python3's string.format methods for handling templating in our static site generators. I am very impressed with how straight forward jinja2 is when it comes to templating our code. Even setting up inheritance between two different tempaltes was relativity straightforward once determining how to load correct template files. All in all, I would recommend learning this library if doing any sort of advanced templating.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
       </div>
     </div>
-
-    
-    <div class="row blogpost">
-      <div class="col-3">
-        <img class="image-fluid blog-image-thumb" src="./img/1200px-Jinja_software_logo.svg.png">
-      </div>
-      <div class="col-9 blog-preview">
-        <div class="row">
-          <div class="col-10">
-            <h2><a href="JINJA2_templating.html">HTML Templating with JINJA2</a></h2>
-          </div>
-          <div class="col-2">
-            <h6><em>2019-11-17</em></h6>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p class=""><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur....</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="row blogpost">
-      <div class="col-3">
-        <img class="image-fluid blog-image-thumb" src="./img/rsi-example.jpeg">
-      </div>
-      <div class="col-9 blog-preview">
-        <div class="row">
-          <div class="col-10">
-            <h2><a href="RSI_Timer.html">Building an RSI timer for QGIS 3</a></h2>
-          </div>
-          <div class="col-2">
-            <h6><em>2019-10-27</em></h6>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p class=""><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur....</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="row blogpost">
-      <div class="col-3">
-        <img class="image-fluid blog-image-thumb" src="./img/qgis-example.jpg">
-      </div>
-      <div class="col-9 blog-preview">
-        <div class="row">
-          <div class="col-10">
-            <h2><a href="lines_to_string_QGIS.html">How to convert points to linestring with Points2one plugin in QGIS 3</a></h2>
-          </div>
-          <div class="col-2">
-            <h6><em>2019-10-27</em></h6>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p class=""><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur....</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="row blogpost">
-      <div class="col-3">
-        <img class="image-fluid blog-image-thumb" src="./img/bootstrap.jpeg">
-      </div>
-      <div class="col-9 blog-preview">
-        <div class="row">
-          <div class="col-10">
-            <h2><a href="buildingwebsite.html">Starting a Coding Bootcamp</a></h2>
-          </div>
-          <div class="col-2">
-            <h6><em>2019-10-27</em></h6>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p class=""><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur....</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
-
   </div>
 </div>
 
