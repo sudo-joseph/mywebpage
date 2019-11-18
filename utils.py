@@ -134,7 +134,7 @@ def gen_new_post(page_dir="blog",template='page_markup_base.md'):
     new_page_template = jinja_env.get_template(template)
     title = input("Enter page title: ")
     options = {'title': title,
-               'publication_date':datetime.datetime.now().strftime('%m-%d-%Y'),
+               'publication_date':datetime.datetime.now().strftime('%Y-%m-%d'),
                }
 
     output_file = new_page_template.render(**options)
