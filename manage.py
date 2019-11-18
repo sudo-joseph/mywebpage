@@ -3,26 +3,49 @@
 __author__ = 'Joseph Reid'
 
 import utils
-from jinja2 import Environment, FileSystemLoader
+import sys
 
 def main():
+    if sys.argv[1] == "build":
+        print("Building...")
+        utils.build()
+        print("Build Complete.")
+    elif sys.argv[1] == "new":
+        if len(sys.argv) == 3:
+            if sys.argv == 'blog':
+                print("Generating new blog post")
+                utils.gen_new_post("blog")
+                print("Page Generated")
+            elif sys.argv == 'project':
+                print("Generating new project post")
+                utils.gen_new_post("projects")
+                print("Page Generated")
+            else:
+                print("Unknown Page Type")
+                helper()
+        else:
+            print("Generating new blog post")
+            utils.gen_new_post("blog")
+            print("Page Generated")
+    else:
+        print("Please specify ’build’ or ’new’")
+
+def helper():
     """
-    main() - Main Loop for Static Site Generator.
+    helper()
+
+    Prints help message explaining correct manage.py usage.
     """
-    CONTENT_BASE = 'content_base.html'
-    SITE_BASE = 'base.html'
-    PREVIEW_BASE = 'preview_base.html'
-    JINJA_ENV = Environment(loader=FileSystemLoader('templates'))
+    help_msg = """
+        Usage:
+            Rebuild site: python manage.py build
+            Create new page: python manage.py new {type}
+                {type} - optional argument for page type (blog or projects), defaults to blog.
 
-    #generate blog posts based on content in blog/
-    utils.gen_content_posts("blog","index",CONTENT_BASE,SITE_BASE,JINJA_ENV)
-    utils.gen_preview_pages("blog","index",PREVIEW_BASE,JINJA_ENV)
+        """
+    print(help_msg)
 
-    #generate project posts based on content in project/
-    utils.gen_content_posts("projects","projects",CONTENT_BASE,SITE_BASE,JINJA_ENV)
-    utils.gen_preview_pages("projects","projects",PREVIEW_BASE,JINJA_ENV)
-    #Generate site
-    utils.gen_site_pages(SITE_BASE,JINJA_ENV)
-
-if __name__ == '__main__':
+if __name__ == "__main__" and len(sys.argv)>1:
     main()
+else:
+    helper()
