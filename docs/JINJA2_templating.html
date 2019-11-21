@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>{% block title %}{% endblock %}{{title}}</title>
+  <title>HTML Templating with JINJA2 - Joseph\s Blog</title>
 
   <!-- Bootstrap -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
   <link href="./css/style.css" rel="stylesheet">
-  {% block html_head %}{% endblock %}
+  
 
 </head>
 
@@ -36,13 +36,13 @@
 
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item {{index}}">
+          <li class="nav-item ">
             <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item {{projects}}">
+          <li class="nav-item active">
             <a class="nav-link" href="projects.html">Projects</a>
           </li>
-          <li class="nav-item {{contact}}">
+          <li class="nav-item ">
             <a class="nav-link" href="contact.html">Contact</a>
           </li>
         </ul>
@@ -66,13 +66,13 @@
               <div class="col-md">
                 <ul class="nav nav-pills flex-column">
                   <li class="nav-item sidebar-buttons">
-                    <a class="nav-link {{index}}" href="index.html">Home</a>
+                    <a class="nav-link " href="index.html">Home</a>
                   </li>
                   <li class="nav-item   sidebar-buttons">
-                    <a class="nav-link {{projects}}" href="projects.html">Projects</a>
+                    <a class="nav-link active" href="projects.html">Projects</a>
                   </li>
                   <li class="nav-item sidebar-buttons">
-                    <a class="nav-link {{contact}}" href="contact.html">Contact Me</a>
+                    <a class="nav-link " href="contact.html">Contact Me</a>
                   </li>
                   <li class="nav-item sidebar-buttons">
                     <a class="nav-link" href="https://github.com/sudo-joseph"><i class="fab fa-github"></i> GitHub</a>
@@ -91,7 +91,47 @@
           </div>
         </div>
       </div>
-      {% block content %}{{content}}{% endblock %}
+      
+<div class="col-md-10">
+  <div class="col blog-col">
+    <div class='row'>
+      <div class="col-md-10">
+        <h2>HTML Templating with JINJA2</h2>
+      </div>
+      <div class="col-md-2 d-none d-lg-block ">
+        <em class ='date'>2019-11-17</em>
+      </div>
+    </div>
+    <div class='row'>
+      <div class="col">
+        <div class="float-right">
+          <div class="row">
+            <div class="col blog-side-image ">
+              <img class="img-fluid rounded float-right blog-image" src=./img/1200px-Jinja_software_logo.svg.png>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col blog-image-subtext">
+              <em class=''>JINJA2 is an versatile templating language for python</em>
+            </div>
+          </div>
+        </div>
+        <div class="blog_post_text">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 </div>
 </div>
@@ -103,4 +143,4 @@
 
 </html>
 
-<!-- Copyright {{year}} Joseph Reid -->
+<!-- Copyright 2019 Joseph Reid -->

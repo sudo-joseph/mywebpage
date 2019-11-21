@@ -1,12 +1,16 @@
-<!-- START BLOG -->
+{% extends "base.html" %}
+
+{% block title %}{{content_title}} - {% endblock %}
+
+{% block content %}
 <div class="col-md-10">
   <div class="col blog-col">
     <div class='row'>
       <div class="col-md-10">
-        <h2>{blog_title}</h2>
+        <h2>{{content_title}}</h2>
       </div>
       <div class="col-md-2 d-none d-lg-block ">
-        <em 'date'>{publication_date}</em>
+        <em class ='date'>{{publication_date}}</em>
       </div>
     </div>
     <div class='row'>
@@ -14,19 +18,21 @@
         <div class="float-right">
           <div class="row">
             <div class="col blog-side-image ">
-              <img class="img-fluid rounded float-right blog-image" src={img_link}>
+              <img class="img-fluid rounded float-right blog-image" src={{img_link}}>
             </div>
           </div>
           <div class="row">
             <div class="col blog-image-subtext">
-              <em class=''>{image_subtext}</em>
+              <em class=''>{{image_subtext}}</em>
             </div>
           </div>
         </div>
         <div class="blog_post_text">
-            {blog_text}
+            {{content_text}}
         </div>
       </div>
     </div>
   </div>
 </div>
+
+{% endblock %}

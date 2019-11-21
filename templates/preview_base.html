@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{content_title}} - {% endblock %}
+
+{% block content %}
+<div class="col-md-10">
+  <div class="page-col">
+
+    {% for post in posts %}
+    <div class="row blogpost">
+      <div class="col-3">
+        <img class="image-fluid blog-image-thumb" src="{{post.img_link}}">
+      </div>
+      <div class="col-9 blog-preview">
+        <div class="row">
+          <div class="col-10">
+            <h2><a href="{{post.output_link}}">{{post.content_title}}</a></h2>
+          </div>
+          <div class="col-2">
+            <h6><em>{{post.publication_date}}</em></h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="">{{post.content_text|truncate(length=350)}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+  </div>
+</div>
+
+{% endblock %}
