@@ -10,7 +10,8 @@ settings.configure(
     DEBUG=True,
     ROOT_URLCONF='urls',
     STATIC_URL='/static/',
-    STATIC_ROOT=os.path.join(BASE_DIR, 'static'),
+    # STATIC_ROOT=os.path.join(BASE_DIR, 'static'),
+    STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static')],
     INSTALLED_APPS=[
         'django.contrib.staticfiles',
     ],
@@ -18,6 +19,8 @@ settings.configure(
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
     }],
+
+
 )
 
 execute_from_command_line(sys.argv)
