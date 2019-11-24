@@ -1,6 +1,6 @@
 content_title: About Me
 publication_date:
-img_link: #
+img_link: joseph.jpg
 image_subtext:
 
 <h2>Hi, I'm Joseph...</h2>

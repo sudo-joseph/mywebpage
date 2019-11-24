@@ -1,6 +1,6 @@
 content_title: How to convert points to linestring with Points2one plugin in QGIS 3
 publication_date: 2019-10-27
-img_link: ./img/qgis-example.jpg
+img_link: qgis-example.jpg
 image_subtext: QGIS struggles to render this many points as individual features
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

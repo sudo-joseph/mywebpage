@@ -1,6 +1,6 @@
 content_title: Building a Basic MUD in Python3
 publication_date: 2019-11-17
-img_link: ./img/Login_screen_of_a_text_based_MUD..jpg
+img_link: Login_screen_of_a_text_based_MUD..jpg
 image_subtext: Cyber Assault, a Classic Text Based MUD.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
