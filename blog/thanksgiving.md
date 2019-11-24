@@ -4,7 +4,7 @@ img_link: /img/thanksgiving.jpg
 image_subtext: The longest two weeks of the year...
 
 I am really looking forward to thanksgiving this year for two reasons.
-First, it will allow me to dedicate some additional time time to my coding bootcamp.Maintaining a full time job while learning to code has been challenging.
+First, it will allow me to dedicate some additional time time to my coding bootcamp. Maintaining a full time job while learning to code has been challenging.
 
 Secondly, I am in desperate need of a new phone and it seems like waiting for a
 black Friday deal seems like my best bet. Unfortunately, the consensus on the

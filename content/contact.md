@@ -1,6 +1,6 @@
 content_title:Hi, I'm Joseph...
 publication_date:
-img_link: /img/coffeeowl.png
+img_link: /img/coffee-owl.jpg
 image_subtext:
 
 <p>I created this site as part of of my homework
