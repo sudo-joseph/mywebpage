@@ -4,9 +4,12 @@ import views
 
 # In this example, we've separated out the views.py into a new file
 urlpatterns = [
-    path('', views.index),
-    # path('about-me', views.about_me),
-    # path('github-api-example', views.github_api_example),
+    path('', views.index,name='index'),
+    path('index', views.index),
+    path('projects', views.projects,name='projects'),
+    path('contact', views.contact,name='contact'),
+    path('blog/<slug:title>', views.post, {'root':'index'}, name='blog',),
+    path('projects/<slug:title>', views.post, {'root':'projects'}, name='projects',),
 ]
 
 # Boilerplate to include static files
