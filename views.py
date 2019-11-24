@@ -12,7 +12,6 @@ import string
 
 BLOG_DIR = "blog"
 
-
 def index(request):
     options=gen_preview_pages("blog","index")
     return render(request, 'preview_base.html', options)
@@ -22,10 +21,10 @@ def projects(request):
     return render(request, 'preview_base.html', options)
 
 def contact(request):
-    pass
+    options=gen_content_post('contact','content','contact')
+    return render(request, 'content_base.html', options)
 
 def post(request,title,root):
-    print('THIS IS THE ONE ',root)
     options=gen_content_post(title,request.resolver_match.url_name,root)
     return render(request, 'content_base.html', options)
 

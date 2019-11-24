@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.index,name='index'),
     path('index', views.index),
     path('projects', views.projects,name='projects'),
-    path('contact', views.contact,name='contact'),
+    path('contact', views.contact, name='contact',),
     path('blog/<slug:title>', views.post, {'root':'index'}, name='blog',),
     path('projects/<slug:title>', views.post, {'root':'projects'}, name='projects',),
 ]
