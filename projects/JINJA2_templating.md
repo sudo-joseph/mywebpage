@@ -1,6 +1,6 @@
 content_title: HTML Templating with JINJA2
 publication_date: 2019-11-17
-img_link:Jinja_software_logo.png
+img_link: /img/Jinja_software_logo.png
 image_subtext: JINJA2 is an versatile templating language for python
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

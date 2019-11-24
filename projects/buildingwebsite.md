@@ -1,6 +1,6 @@
 content_title: Starting a Coding Bootcamp
 publication_date: 2019-10-27
-img_link: bootstrap.jpeg
+img_link: /img/bootstrap.jpeg
 image_subtext: Bootstrap 4: easy to learn, hard to master.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

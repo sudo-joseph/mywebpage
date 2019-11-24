@@ -9,7 +9,7 @@
     {% for post in posts %}
     <div class="row blogpost">
       <div class="col-3">
-        <img class="image-fluid blog-image-thumb" src="{% get_static_prefix %}img/{{post.img_link}}">
+        <img class="image-fluid blog-image-thumb" src="{% static post.img_link %}">
       </div>
       <div class="col-9 blog-preview">
         <div class="row">

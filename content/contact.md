@@ -1,9 +1,7 @@
-content_title: About Me
+content_title:Hi, I'm Joseph...
 publication_date:
-img_link: joseph.jpg
+img_link: coffee-owl.jpg
 image_subtext:
-
-<h2>Hi, I'm Joseph...</h2>
 
 <p>I created this site as part of of my homework
   for the backend course offered by <a href="#">kickstart coding</a>,

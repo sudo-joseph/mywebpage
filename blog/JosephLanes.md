@@ -1,6 +1,6 @@
 content_title: A plan to fix I-80 in Berkeley (for me)
 publication_date: 2019-11-01
-img_link: I-80_Eastshore_Fwy.jpg
+img_link: /img/I-80_Eastshore_Fwy.jpg
 image_subtext: An Unending Nightmare...
 
 Instead of carpool lanes, we should have <em>Joseph</em> lanes. This would allow me to get to where I need to go without the hassles of traffic. In fact, this could have a huge impact to my quality of life in general

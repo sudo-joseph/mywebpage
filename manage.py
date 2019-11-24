@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 settings.configure(
     DEBUG=True,
     ROOT_URLCONF='urls',
-    STATIC_URL='static/',
+    STATIC_URL='/static/',
     STATIC_ROOT=os.path.join(BASE_DIR, 'static'),
     INSTALLED_APPS=[
         'django.contrib.staticfiles',
