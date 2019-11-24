@@ -1,10 +1,10 @@
 content_title:Hi, I'm Joseph...
 publication_date:
-img_link: /img/coffee-owl.jpg
+img_link: img/coffee-owl.jpg
 image_subtext:
 
 <p>I created this site as part of of my homework
-  for the backend course offered by <a href="#">kickstart coding</a>,
+  for the backend course offered by <a href="https://kickstartcoding.com/">kickstart coding</a>,
   a local coding bootcamp here in oakland. My current goal is to become a
   front end web developer (this mess of a site notwithstanding).
   I currently work for a large tech company in an operations role, but am interested in moving into a more techincal position.
