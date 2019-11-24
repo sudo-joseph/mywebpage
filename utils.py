@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 __author__ = 'Joseph Reid'
 
 import datetime
@@ -8,47 +7,104 @@ import os
 import copy
 import markdown
 from jinja2 import Environment, FileSystemLoader
-import subprocess
 import string
+import sys
 
-def build():
+## main() & helper() for creating new site pages.
+
+def main():
     """
-    build() - builds site files.
+    main() - Main Loop for manage.py.
     """
-    CONTENT_BASE = "content_base.html"
-    SITE_BASE = "base.html"
-    PREVIEW_BASE = "preview_base.html"
-    JINJA_ENV = Environment(loader=FileSystemLoader("templates"))
+    if sys.argv[1] == "new":
+        if len(sys.argv) == 3:
+            if sys.argv[2] == 'blog':
+                print("Generating new blog post")
+                gen_new_post("blog")
+                print("Page Generated")
+            elif sys.argv[2] == 'project':
+                print("Generating new project post")
+                gen_new_post("projects")
+                print("Page Generated")
+            else:
+                print("Unknown Page Type")
+                helper()
+        else:
+            print("Generating new blog post")
+            gen_new_post("blog")
+            print("Page Generated")
+    else:
+        print("Please specify ’’new’ to generate new page")
 
-    #generate blog posts based on content in blog/
-    gen_content_posts("blog","index",CONTENT_BASE,SITE_BASE,JINJA_ENV)
-    gen_preview_pages("blog","index",PREVIEW_BASE,JINJA_ENV)
-
-    #generate project posts based on content in project/
-    gen_content_posts("projects","projects",CONTENT_BASE,SITE_BASE,JINJA_ENV)
-    gen_preview_pages("projects","projects",PREVIEW_BASE,JINJA_ENV)
-    #Generate site
-    gen_site_pages(SITE_BASE,JINJA_ENV)
-
-def gen_site_pages(site_base,jinja_env):
+def helper():
     """
-    gen_site_pages(site_base,jinja_env)
+    helper()
 
-    Generates site pages based on html files in content/ with jinja2 template
-    from jinja_env.
+    Prints help message explaining correct utils.py usage.
     """
-    site_template = jinja_env.get_template(site_base)
-    site_pages = get_page_names(root="content",ext=".html")
+    help_msg = """
+        Usage:
+            Rebuild site: python3 manage.py build
 
-    for page in site_pages:
-        options = {'title':'',
-                   'year':datetime.datetime.now().year,
-                   'project_pages':''}
-        options['content'] = get_content(page)
-        options[os.path.splitext(page)[0]] = 'active'
-        #todo move render call to seperate file
-        output_file = site_template.render(**options)
-        open(os.path.join("docs",page),'w').write(output_file)
+            Create new page: python3 utils.py new {type}
+                {type} - optional argument for page type (blog or projects),
+                defaults to blog.
+
+        """
+    print(help_msg)
+
+##Functions below used for generate template content in manage.py
+
+def gen_content_post(title,page_dir,root):
+    """
+    gen_content_posts() - Generates template content from markdown files in
+    provided directory.
+    """
+    md = markdown.Markdown(extensions=["markdown.extensions.meta"])
+    content = md.convert(get_page(os.path.join(page_dir,title + '.md')))
+    options = {'title':'Joseph\s Blog',
+           'index':'',
+           'projects':'',
+           'contact':'',
+           'year':datetime.datetime.now().year,
+           'content_title':md.Meta["content_title"][0],
+           'publication_date':md.Meta["publication_date"][0],
+           'img_link':md.Meta["img_link"][0],
+           'image_subtext':md.Meta["image_subtext"][0],
+           'content_text':content,
+           }
+    options[root] = 'active'
+    return options
+
+def gen_preview_pages(page_dir,out_dir):
+    """
+    gen_preview_pages(page_dir,out_dir)
+
+    Generates template input for preview pages by looping over all md files in input dir.
+    """
+    md = markdown.Markdown(extensions=["markdown.extensions.meta"])
+    # content_template = jinja_env.get_template(preview_base)
+    content_pages = get_page_names(page_dir,ext='.md')
+    options = {'title':'Joseph\s Blog',
+               'index':'',
+               'projects':'',
+               'contact':'',
+               'year':datetime.datetime.now().year,
+               'posts':[]
+               }
+    options[out_dir] = 'active'
+    post_list = []
+    for page in content_pages:
+        content = md.convert(get_page(os.path.join(page_dir,page)))
+        post_details = {'content_title':md.Meta["content_title"][0],
+                       'publication_date':md.Meta["publication_date"][0],
+                       'img_link':md.Meta["img_link"][0],
+                       'image_subtext':md.Meta["image_subtext"][0],
+                       'output_link':'{}/{}'.format(page_dir,os.path.splitext(page)[0]),
+                       'content_text':content,}
+        post_list.append(copy.deepcopy(post_details))
+    options['posts'] = sorted(post_list, key=lambda k: k['publication_date'],reverse=True)
+    return options
 
 def get_page_names(root,ext):
     """
@@ -68,74 +124,6 @@ def get_page(path):
     """
     return open(path).read()
 
-def get_content(page):
-    """
-    get_content(template)
-
-    Returns string with page content specified by input page.
-    """
-    return get_page(os.path.join("content",page))
-
-def gen_content_posts(page_dir,out_dir,content_base,site_base,jinja_env):
-    """
-    gen_content_posts() - Generates html content posts from markdown files in
-    provided directory.
-    """
-    md = markdown.Markdown(extensions=["markdown.extensions.meta"])
-    content_template = jinja_env.get_template(content_base)
-    content_pages = get_page_names(page_dir,ext='.md')
-
-    for page in content_pages:
-        content = md.convert(get_page(os.path.join(page_dir,page)))
-        options = {'title':'Joseph\s Blog',
-               'index':'',
-               'projects':'',
-               'contact':'',
-               'year':datetime.datetime.now().year,
-               'content_title':md.Meta["content_title"][0],
-               'publication_date':md.Meta["publication_date"][0],
-               'img_link':md.Meta["img_link"][0],
-               'image_subtext':md.Meta["image_subtext"][0],
-               'content_text':content,
-               }
-        options[out_dir] = 'active'
-        output_file = content_template.render(**options)
-        open(os.path.join("docs",os.path.splitext(page)[0] + '.html')
-            ,'w').write(output_file)
-
-def gen_preview_pages(page_dir,out_dir,preview_base,jinja_env):
-    """
-    gen_preview_pages(page_dir,out_dir,preview_base,jinja_env)
-
-    Generates html page with preveiws for pages in input page_dir, saves to
-    out_dir, and is based on template in preview_base and jinja_env.
-
-    """
-    md = markdown.Markdown(extensions=["markdown.extensions.meta"])
-    content_template = jinja_env.get_template(preview_base)
-    content_pages = get_page_names(page_dir,ext='.md')
-    options = {'title':'Joseph\s Blog',
-               'index':'',
-               'projects':'',
-               'contact':'',
-               'year':datetime.datetime.now().year,
-               'posts':[]
-               }
-    options[out_dir] = 'active'
-    post_list = []
-    for page in content_pages:
-        content = md.convert(get_page(os.path.join(page_dir,page)))
-        post_details = {'content_title':md.Meta["content_title"][0],
-                       'publication_date':md.Meta["publication_date"][0],
-                       'img_link':md.Meta["img_link"][0],
-                       'image_subtext':md.Meta["image_subtext"][0],
-                       'output_link':os.path.splitext(page)[0] + '.html',
-                       'content_text':content,}
-        post_list.append(copy.deepcopy(post_details))
-    options['posts'] = sorted(post_list, key=lambda k: k['publication_date'],reverse=True)
-    output_file = content_template.render(**options)
-    open(os.path.join("docs",out_dir+".html"),'w').write(output_file)
-
 def gen_new_post(page_dir="blog",template='page_markup_base.md'):
     """
     gen_new_post - create new page from template
@@ -152,7 +140,6 @@ def gen_new_post(page_dir="blog",template='page_markup_base.md'):
     output_file = new_page_template.render(**options)
     path_name = os.path.join(page_dir,clean_title(title)+'.md')
     open(path_name,'w').write(output_file)
-    # subprocess.call(["xdg-open", path_name])
 
 def clean_title(title):
     """
@@ -165,3 +152,8 @@ def clean_title(title):
     title = [''.join(filter(str.isalnum, word)) for word in title]
     title = '_'.join(title)
     return(title)
+
+
+
+if __name__ == "__main__" and len(sys.argv)>1:
+    main()
