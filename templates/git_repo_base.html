@@ -22,6 +22,7 @@
           <div class="col">
             <h5>Description</h5>
             <p class="">{{repo.content_text|truncatechars:350|safe}}</p>
+            <h6>Languages: {{repo.language}}</h6>
             {% if repo.licence %}
             <h6>Licence: {{repo.licence}}</h6>
             {% endif %}

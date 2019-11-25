@@ -174,6 +174,7 @@ def github_api(request):
                            'last_updated':repo['updated_at'],
                            'output_link':repo['svn_url'],
                            'content_text':repo['description'],
+                           'language':repo['language'],
                            }
             if repo['license']:
                 post_details['licence'] = repo['licence']['name']
