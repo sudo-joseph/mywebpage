@@ -9,12 +9,13 @@ import markdown
 from jinja2 import Environment, FileSystemLoader
 import string
 import sys
+import requests
 
 ## main() & helper() for creating new site pages.
 
 def main():
     """
-    main() - Main Loop for manage.py.
+    main() - Main Loop for utils.py.
     """
     if sys.argv[1] == "new":
         if len(sys.argv) == 3:
@@ -153,7 +154,32 @@ def clean_title(title):
     title = '_'.join(title)
     return(title)
 
+def github_api(request):
+    response = requests.get('https://api.github.com/users/sudo-joseph/repos')
+    repos = response.json()
+    import pprint
+    pprint.pprint(repos[1])
+    options = {'title':'Joseph\s Blog',
+               'index':'',
+               'projects':'active',
+               'contact':'',
+               'year':datetime.datetime.now().year,
+               'repos':[]
+               }
+    repo_list = []
 
+    for repo in repos:
+        if repo['fork']==False:
+            post_details = {'content_title':repo['name'],
+                           'last_updated':repo['updated_at'],
+                           'output_link':repo['svn_url'],
+                           'content_text':repo['description'],
+                           }
+            if repo['license']:
+                post_details['licence'] = repo['licence']['name']
+            repo_list.append(copy.deepcopy(post_details))
+    options['repos'] = sorted(repo_list, key=lambda k: k['last_updated'],reverse=True)
+    return options
 
 if __name__ == "__main__" and len(sys.argv)>1:
     main()

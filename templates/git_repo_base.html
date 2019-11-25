@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{content_title}} - {% endblock %}
+
+{% block content %}
+<div class="col-md-10">
+  <div class="page-col">
+
+    {% for repo in repos %}
+    <div class="row blogpost">
+      <div class="col-10 blog-preview">
+        <div class="row">
+          <div class="col-9">
+            <h2><a href="{{repo.output_link}}">{{repo.content_title|capfirst}}</a></h2>
+          </div>
+          <div class="col-3">
+            <h6><em>Last updated:</em></h6>
+            <h6><em>{{repo.last_updated}}</em></h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h5>Description</h5>
+            <p class="">{{repo.content_text|truncatechars:350|safe}}</p>
+            {% if repo.licence %}
+            <h6>Licence: {{repo.licence}}</h6>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+  </div>
+</div>
+
+{% endblock %}

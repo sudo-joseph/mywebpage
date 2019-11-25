@@ -13,8 +13,8 @@ def index(request):
     return render(request, 'preview_base.html', options)
 
 def projects(request):
-    options=utils.gen_preview_pages("projects","projects")
-    return render(request, 'preview_base.html', options)
+    context = utils.github_api(request)
+    return render(request, 'git_repo_base.html', context)
 
 def contact(request):
     options=utils.gen_content_post('contact','content','contact')
