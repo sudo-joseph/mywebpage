@@ -5,14 +5,8 @@ This script can be used to generate a new blog page based on template, and
 provides some helper functions for generating content for site pages.
 """
 
-# import requests
 # from django.http import HttpResponse
 from django.shortcuts import render
-# import datetime
-# import glob
-# import os
-# import copy
-# import markdown
 import utils
 
 
