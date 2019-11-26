@@ -5,6 +5,47 @@
 {% block content %}
 <div class="col-md-10">
   <div class="page-col">
+    <div class = "projects">
+
+      <div class="col-md-10">
+        <div class="col blog-col">
+          <div class='row'>
+            <div class="col-md-10">
+              <h2>{{content_title}}</h2>
+            </div>
+
+
+
+            <div class="col-md-2 d-none d-lg-block ">
+              <em class ='date'>{{publication_date}}</em>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="col">
+              <div class="float-right">
+                <div class="row">
+                  <div class="col blog-side-image ">
+                    <img class="img-fluid rounded float-right blog-image" src= "{% static img_link %}">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col blog-image-subtext">
+                    <em class=''>{{image_subtext}}</em>
+                  </div>
+                </div>
+              </div>
+              <div class="blog_post_text">
+                  {{content_text|safe}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- <h1> Here are some of my github projects:</h1>
+
 
     {% for repo in repos %}
     <div class="row blogpost">
@@ -22,7 +63,7 @@
           <div class="col">
             <h5>Description</h5>
             <p class="">{{repo.content_text|truncatechars:350|safe}}</p>
-            <h6>Languages: {{repo.language}}</h6>
+            <h6>Languages: {{repo.languages}}</h6>
             {% if repo.licence %}
             <h6>Licence: {{repo.licence}}</h6>
             {% endif %}
@@ -31,7 +72,7 @@
       </div>
     </div>
 
-    {% endfor %}
+    {% endfor %} -->
 
   </div>
 </div>
