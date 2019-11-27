@@ -95,11 +95,16 @@ h1, h2, h3,h4,h5,h6,p,li,nav {
 .blog-side-image {
   width: 25%;
   margin-left: 2rem;
+  background: #f2fcfc;
 }
 
 .blog-image {
   width: 30rem;
 }
+
+/* .project-image {
+  width: 50rem;
+} */
 
 .blog-image-subtext {
   text-align: center;
@@ -127,4 +132,10 @@ h1, h2, h3,h4,h5,h6,p,li,nav {
   position: relative;
   margin-bottom: 2rem;
 }
+
+.gitrepo {
+  margin-bottom: 1rem;
+  border-style: solid;
+  border-color: grey;
+  border-weight: 1px;
 }

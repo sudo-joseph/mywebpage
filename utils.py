@@ -182,6 +182,8 @@ def github_repos(request):
                             }
             if repo['license']:
                 post_details['licence'] = repo['licence']['name']
+            else:
+                post_details['licence'] = 'N/A'
             repo_list.append(copy.deepcopy(post_details))
     options['repos'] = sorted(repo_list,
                               key=lambda k: k['last_updated'],
