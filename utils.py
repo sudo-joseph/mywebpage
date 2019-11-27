@@ -1,7 +1,7 @@
 """
 Utilities for my website.
 
-This script can be used to generate a new blog page based on template, and
+This script can be used to generate a new blog page based on template and
 provides some helper functions for generating content for site pages.
 """
 
@@ -20,22 +20,9 @@ import json
 def main():
     """Generate new page for blog."""
     if sys.argv[1] == "new":
-        if len(sys.argv) == 3:
-            if sys.argv[2] == 'blog':
-                print("Generating new blog post")
-                gen_new_post("blog")
-                print("Page Generated")
-            elif sys.argv[2] == 'project':
-                print("Generating new project post")
-                gen_new_post("projects")
-                print("Page Generated")
-            else:
-                print("Unknown Page Type")
-                helper()
-        else:
-            print("Generating new blog post")
-            gen_new_post("blog")
-            print("Page Generated")
+        print("Generating new blog post")
+        gen_new_post("blog")
+        print("Page Generated")
     else:
         print("Please specify ’’new’ to generate new page")
 
