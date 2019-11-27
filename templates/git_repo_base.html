@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{content_title}} - {% endblock %}
+
+{% block content %}
+
+<div class="col-md-10">
+  <div class="col blog-col">
+    <div class='row'>
+      <div class="col-md-9 ">
+        <h2>Here are some of my projects on Github:</h2>
+        {% for repo in repos %}
+        <div class="row gitrepo">
+          <div class="col">
+            <div class="row ">
+              <div class="col">
+                <h2><a href="{{repo.output_link}}">{{repo.content_title|capfirst}}</a></h2>
+                <p>{{repo.content_text}}</p>
+              </div>
+            </div>
+            <div class="row ">
+              <div class="col">
+                <em>Languages: {{repo.languages}}</em>
+              </div>
+              <div class="col">
+                <em class='date'>Last Updated: {{repo.last_updated|truncatechars:11}}</em>
+              </div>
+              <div class="col">
+                <em>Licence: {{repo.licence}}</em>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="col">
+        <img class="img-fluid rounded float-right blog-image" src="{% static '/img/GitHub-Mark.png' %}">
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

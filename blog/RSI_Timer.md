@@ -1,6 +1,6 @@
 content_title: Building an RSI timer for QGIS 3
 publication_date: 2019-10-27
-img_link: ./img/rsi-example.jpeg
+img_link: /img/rsi-example.jpeg
 image_subtext: Save your wrists when doing digitizing work.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

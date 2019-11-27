@@ -1,6 +1,6 @@
 content_title: {{title}}
 publication_date: {{publication_date}}
-img_link: ./img/replace_me.txt
+img_link: /img/replace_me.jpg
 image_subtext:
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

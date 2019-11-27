@@ -3,6 +3,8 @@
 {% block title %}{{content_title}} - {% endblock %}
 
 {% block content %}
+{% load static %}
+
 <div class="col-md-10">
   <div class="col blog-col">
     <div class='row'>
@@ -18,7 +20,7 @@
         <div class="float-right">
           <div class="row">
             <div class="col blog-side-image ">
-              <img class="img-fluid rounded float-right blog-image" src={{img_link}}>
+              <img class="img-fluid rounded float-right blog-image" src= "{% static img_link %}">
             </div>
           </div>
           <div class="row">
@@ -28,7 +30,7 @@
           </div>
         </div>
         <div class="blog_post_text">
-            {{content_text}}
+            {{content_text|safe}}
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +13,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
-  <link href="./css/style.css" rel="stylesheet">
+  <link href="{% static '/css/style.css' %}" rel="stylesheet">
   {% block html_head %}{% endblock %}
 
 </head>
@@ -28,8 +29,8 @@
 
 <!-- Nav Bar -->
 <nav class="navbar navbar-expand navbar-light bg-light d-lg-none">
-      <img class="navbar-image img-fluid rounded float-left" src="./img/sunflower.jpg">
-      <a class="navbar-brand" href="#">Joseph's Blog</a>
+      <img class="navbar-image img-fluid rounded float-left" src="{% static 'img/sunflower.jpg' %}">
+      <a class="navbar-brand" href="{% url 'index' %}">Joseph's Blog</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -37,13 +38,13 @@
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item {{index}}">
-            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item {{projects}}">
-            <a class="nav-link" href="projects.html">Projects</a>
+            <a class="nav-link" href="{% url 'projects' %}">Projects</a>
           </li>
           <li class="nav-item {{contact}}">
-            <a class="nav-link" href="contact.html">Contact</a>
+            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
           </li>
         </ul>
 
@@ -56,7 +57,7 @@
       <div class="col-md-2 d-none d-lg-block sidebar">
         <div class="row">
           <div class="col image-col">
-            <img class="sidebar-image img-fluid rounded float-left" src="./img/sunflower.jpg">
+            <img class="sidebar-image img-fluid rounded float-left" src="{% static 'img/sunflower.jpg' %}">
             <!-- Image by <a href="https://pixabay.com/users/Capri23auto-1767157/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4570071">Capri23auto</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4570071">Pixabay</a> -->
           </div>
         </div>
@@ -66,13 +67,13 @@
               <div class="col-md">
                 <ul class="nav nav-pills flex-column">
                   <li class="nav-item sidebar-buttons">
-                    <a class="nav-link {{index}}" href="index.html">Home</a>
+                    <a class="nav-link {{index}}" href="{% url 'index' %}">Home</a>
                   </li>
                   <li class="nav-item   sidebar-buttons">
-                    <a class="nav-link {{projects}}" href="projects.html">Projects</a>
+                    <a class="nav-link {{projects}}" href="{% url 'projects' %}">Projects</a>
                   </li>
                   <li class="nav-item sidebar-buttons">
-                    <a class="nav-link {{contact}}" href="contact.html">Contact Me</a>
+                    <a class="nav-link {{contact}}" href="{% url 'contact' %}">Contact Me</a>
                   </li>
                   <li class="nav-item sidebar-buttons">
                     <a class="nav-link" href="https://github.com/sudo-joseph"><i class="fab fa-github"></i> GitHub</a>

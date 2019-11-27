@@ -1,167 +1,182 @@
-#!/usr/bin/env python3
+"""
+Utilities for my website.
+
+This script can be used to generate a new blog page based on template and
+provides some helper functions for generating content for site pages.
+"""
 
 __author__ = 'Joseph Reid'
-
 import datetime
 import glob
 import os
 import copy
 import markdown
 from jinja2 import Environment, FileSystemLoader
-import subprocess
-import string
+import sys
+import requests
+import json
 
-def build():
-    """
-    build() - builds site files.
-    """
-    CONTENT_BASE = "content_base.html"
-    SITE_BASE = "base.html"
-    PREVIEW_BASE = "preview_base.html"
-    JINJA_ENV = Environment(loader=FileSystemLoader("templates"))
 
-    #generate blog posts based on content in blog/
-    gen_content_posts("blog","index",CONTENT_BASE,SITE_BASE,JINJA_ENV)
-    gen_preview_pages("blog","index",PREVIEW_BASE,JINJA_ENV)
+def main():
+    """Generate new page for blog."""
+    if sys.argv[1] == "new":
+        print("Generating new blog post")
+        gen_new_post("blog")
+        print("Page Generated")
+    else:
+        print("Please specify ’’new’ to generate new page")
 
-    #generate project posts based on content in project/
-    gen_content_posts("projects","projects",CONTENT_BASE,SITE_BASE,JINJA_ENV)
-    gen_preview_pages("projects","projects",PREVIEW_BASE,JINJA_ENV)
-    #Generate site
-    gen_site_pages(SITE_BASE,JINJA_ENV)
 
-def gen_site_pages(site_base,jinja_env):
-    """
-    gen_site_pages(site_base,jinja_env)
+def helper():
+    """Print help message explaining correct utils.py usage."""
+    help_msg = """
+        Usage:
+            Rebuild site: python3 manage.py build
 
-    Generates site pages based on html files in content/ with jinja2 template
-    from jinja_env.
-    """
-    site_template = jinja_env.get_template(site_base)
-    site_pages = get_page_names(root="content",ext=".html")
+            Create new page: python3 utils.py new {type}
+                {type} - optional argument for page type (blog or projects),
+                defaults to blog.
 
-    for page in site_pages:
-        options = {'title':'',
-                   'year':datetime.datetime.now().year,
-                   'project_pages':''}
-        options['content'] = get_content(page)
-        options[os.path.splitext(page)[0]] = 'active'
-        #todo move render call to seperate file
-        output_file = site_template.render(**options)
-        open(os.path.join("docs",page),'w').write(output_file)
+        """
+    print(help_msg)
 
-def get_page_names(root,ext):
-    """
-    get_page_names(root,ext)
 
-    Returns list of files that have extention ext in directory root
-    """
-    path_to_posts = os.path.join(root,'*'+ ext)
-    pages = glob.glob(path_to_posts)
-    return [os.path.basename(page) for page in pages]
-
-def get_page(path):
-    """
-    get_page(path)
-
-    Returns string containing data in file specified by input path.
-    """
-    return open(path).read()
-
-def get_content(page):
-    """
-    get_content(template)
-
-    Returns string with page content specified by input page.
-    """
-    return get_page(os.path.join("content",page))
-
-def gen_content_posts(page_dir,out_dir,content_base,site_base,jinja_env):
-    """
-    gen_content_posts() - Generates html content posts from markdown files in
-    provided directory.
-    """
+def gen_content_post(title, page_dir, root):
+    """Generate template content from markdown files in page_dir directory."""
     md = markdown.Markdown(extensions=["markdown.extensions.meta"])
-    content_template = jinja_env.get_template(content_base)
-    content_pages = get_page_names(page_dir,ext='.md')
-
-    for page in content_pages:
-        content = md.convert(get_page(os.path.join(page_dir,page)))
-        options = {'title':'Joseph\s Blog',
-               'index':'',
-               'projects':'',
-               'contact':'',
-               'year':datetime.datetime.now().year,
-               'content_title':md.Meta["content_title"][0],
-               'publication_date':md.Meta["publication_date"][0],
-               'img_link':md.Meta["img_link"][0],
-               'image_subtext':md.Meta["image_subtext"][0],
-               'content_text':content,
+    content = md.convert(get_page(os.path.join(page_dir, title + '.md')))
+    options = {'title': 'Joseph\'s Blog',
+               'index': '',
+               'projects': '',
+               'contact': '',
+               'year': datetime.datetime.now().year,
+               'content_title': md.Meta["content_title"][0],
+               'publication_date': md.Meta["publication_date"][0],
+               'img_link': md.Meta["img_link"][0],
+               'image_subtext': md.Meta["image_subtext"][0],
+               'content_text': content,
                }
-        options[out_dir] = 'active'
-        output_file = content_template.render(**options)
-        open(os.path.join("docs",os.path.splitext(page)[0] + '.html')
-            ,'w').write(output_file)
+    options[root] = 'active'
+    return options
 
-def gen_preview_pages(page_dir,out_dir,preview_base,jinja_env):
-    """
-    gen_preview_pages(page_dir,out_dir,preview_base,jinja_env)
 
-    Generates html page with preveiws for pages in input page_dir, saves to
-    out_dir, and is based on template in preview_base and jinja_env.
-
-    """
+def gen_preview_pages(page_dir, out_dir):
+    """Generate template input for preview page for pages in page_dir."""
     md = markdown.Markdown(extensions=["markdown.extensions.meta"])
-    content_template = jinja_env.get_template(preview_base)
-    content_pages = get_page_names(page_dir,ext='.md')
-    options = {'title':'Joseph\s Blog',
-               'index':'',
-               'projects':'',
-               'contact':'',
-               'year':datetime.datetime.now().year,
-               'posts':[]
+    # content_template = jinja_env.get_template(preview_base)
+    content_pages = get_page_names(page_dir, ext='.md')
+    options = {'title': 'Joseph\'s Blog',
+               'index': '',
+               'projects': '',
+               'contact': '',
+               'year': datetime.datetime.now().year,
+               'posts': []
                }
     options[out_dir] = 'active'
     post_list = []
     for page in content_pages:
-        content = md.convert(get_page(os.path.join(page_dir,page)))
-        post_details = {'content_title':md.Meta["content_title"][0],
-                       'publication_date':md.Meta["publication_date"][0],
-                       'img_link':md.Meta["img_link"][0],
-                       'image_subtext':md.Meta["image_subtext"][0],
-                       'output_link':os.path.splitext(page)[0] + '.html',
-                       'content_text':content,}
+        content = md.convert(get_page(os.path.join(page_dir, page)))
+        post_details = {'content_title': md.Meta["content_title"][0],
+                        'publication_date': md.Meta["publication_date"][0],
+                        'img_link': md.Meta["img_link"][0],
+                        'image_subtext': md.Meta["image_subtext"][0],
+                        'output_link': '{}/{}'.format(
+                                        page_dir, os.path.splitext(page)[0]),
+                        'content_text': content,
+                        }
         post_list.append(copy.deepcopy(post_details))
-    options['posts'] = sorted(post_list, key=lambda k: k['publication_date'],reverse=True)
-    output_file = content_template.render(**options)
-    open(os.path.join("docs",out_dir+".html"),'w').write(output_file)
+    options['posts'] = sorted(post_list,
+                              key=lambda k: k['publication_date'],
+                              reverse=True,
+                              )
+    return options
 
-def gen_new_post(page_dir="blog",template='page_markup_base.md'):
-    """
-    gen_new_post - create new page from template
 
-    Creates a new page in directory specified based on template with jinja.
-    """
+def get_page_names(root, ext):
+    """Return list of files that have extention ext in directory root."""
+    path_to_posts = os.path.join(root, '*' + ext)
+    pages = glob.glob(path_to_posts)
+    return [os.path.basename(page) for page in pages]
+
+
+def get_page(path):
+    """Return string containing data in file specified by path argument."""
+    return open(path).read()
+
+
+def gen_new_post(page_dir="blog", template='page_markup_base.md'):
+    """Create new page from jinja2 template."""
     jinja_env = Environment(loader=FileSystemLoader("templates"))
     new_page_template = jinja_env.get_template(template)
     title = input("Enter page title: ")
     options = {'title': title,
-               'publication_date':datetime.datetime.now().strftime('%Y-%m-%d'),
+               'publication_date':
+               datetime.datetime.now().strftime('%Y-%m-%d'),
                }
 
     output_file = new_page_template.render(**options)
-    path_name = os.path.join(page_dir,clean_title(title)+'.md')
-    open(path_name,'w').write(output_file)
-    # subprocess.call(["xdg-open", path_name])
+    path_name = os.path.join(page_dir, clean_title(title)+'.md')
+    open(path_name, 'w').write(output_file)
+
 
 def clean_title(title):
-    """
-    clean_title(title)
-
-    Returns inputed title in lower_snake_case with no punctuation.
-    """
+    """Return title argument string in lower_snake_case with no punctuation."""
     title = title.lower()
     title = title.split()
     title = [''.join(filter(str.isalnum, word)) for word in title]
     title = '_'.join(title)
     return(title)
+
+
+def git_cache():
+    """Cache results of gitupb api calls. Updates with fresh data daily."""
+    if datetime.datetime.fromtimestamp(os.path.getmtime('data.json')).date() \
+            < datetime.datetime.today().date():
+        response = requests.get(
+            'https://api.github.com/users/sudo-joseph/repos')
+        repos = response.json()
+        for repo in repos:
+            lang_response = requests.get(repo['languages_url'])
+            languages = lang_response.json()
+            repo['languages'] = \
+                ', '.join("{!s}".format(key) for key in languages.keys())
+        with open('data.json', 'w') as outfile:
+            json.dump(repos, outfile)
+    else:
+        with open('data.json') as json_file:
+            repos = json.load(json_file)
+    return repos
+
+
+def github_repos(request):
+    """Return data about github repos for project page."""
+    options = {'title': 'Joseph\'s Blog',
+               'index': '',
+               'projects': 'active',
+               'contact': '',
+               'year': datetime.datetime.now().year,
+               'repos': []
+               }
+    repo_list = []
+    repos = git_cache()
+    for repo in repos:
+        if repo['fork'] is False:
+            post_details = {'content_title': repo['name'],
+                            'last_updated': repo['updated_at'],
+                            'output_link': repo['svn_url'],
+                            'content_text': repo['description'],
+                            'languages': repo['languages']
+                            }
+            if repo['license']:
+                post_details['licence'] = repo['licence']['name']
+            else:
+                post_details['licence'] = 'N/A'
+            repo_list.append(copy.deepcopy(post_details))
+    options['repos'] = sorted(repo_list,
+                              key=lambda k: k['last_updated'],
+                              reverse=True)
+    return options
+
+
+if __name__ == "__main__" and len(sys.argv) > 1:
+    main()

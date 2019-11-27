@@ -1,6 +1,6 @@
 content_title: Exploring the California Coast
 publication_date: 2019-10-27
-img_link: ./img/chimneyrock.jpg
+img_link: /img/chimneyrock.jpg
 image_subtext: This might be my favorite place in the bay.
 
 I recently visited Point Reyes and I was blown away by how amazing it is out there. I am also blown away that some jackass thought this was an appropriate place for a dairy. Highly recommend that you visit, though please go on a day that I am not there.
